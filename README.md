@@ -4,8 +4,8 @@ These samples are setup to guide C++ programmers into C# beginning with the clas
 
 ## Requirements
 
-You should have (minimum) Visual Studio 2017 installed on your system.
+You should have (minimum) Visual Studio 2019 installed on your system.
 
 ## How to proceed
 
-There is a single solution file at the top level (Samples.sln). Go through tne numbered samples one at a time reading the comments. The details are all in the code comments.
+Go through the numbered samples one at a time opening the solution file in Visual Studio and reading the comments. The details of each sample are all in the code comments.
