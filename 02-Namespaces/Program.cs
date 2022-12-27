@@ -18,6 +18,10 @@
 //
 // Example: "System.Console.ReadLine" can be specified as "Console.ReadLine"
 //
+// On the surface it doesn't seem like much. But namespaces can be nested and it's not uncommon for a
+// full namespace specification to get rather long and unwieldy. This goes a very long way in cleaning
+// up code and making it more readable.
+//
 using System;
 
 // Open a namespace for the main program.
@@ -26,12 +30,12 @@ namespace Namespaces
 {
     // Note that our main "Program" class now resides within the "Namespaces" namespace.
     //
-    public class Program
+    class Program
     {
         // Our single static "Main" method will still be used automatically as the application
         // entry point.
         //
-        public static void Main()
+        static void Main()
         {
             // Again write text to the console. Note that we've dropped the "System" namespace as the
             // "using" directive up top specifies that types from the "System" namespace be imported into

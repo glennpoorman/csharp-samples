@@ -14,9 +14,9 @@ using System;
 
 namespace Arrays
 {
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
             // Create a five element array using an initializer list. This syntax is similar to using an
             // initializer list in C or C++ except that the end result is still a dynamically created
