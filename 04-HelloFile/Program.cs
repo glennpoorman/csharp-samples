@@ -13,9 +13,9 @@ using System.IO;
 
 namespace HelloFile
 {
-    public class HelloFile
+    class HelloFile
     {
-        public static void Main()
+        static void Main()
         {
             // The "System.IO.StreamWriter" class is used to write text to a stream using a particular
             // encoding. In this simplest case, we use it to write text to a a file on disk.

@@ -6,30 +6,10 @@
 // This sample shows how to define the main entry point for a C# program and also some simple console IO.
 // ------------------------------------------------------------------------------------------------------
 
-// Single class definition.
+// The main class definition. Note that in C#, there are no global functions. All methods must be
+// members of a class or struct. That includes the main entry point.
 //
-// NOTE1: In C#, all methods must be members of a class or struct. That includes the main entry point.
-//
-// NOTE2: Access modifiers are applied to individual members and types. Here the main class is marked as
-//        "public" which means that it can be accessed by any code in this assembly or any other assembly
-//        that references this assembly.
-//
-//        Other access modifiers include:
-//
-//              private - can be accessed only by the same class or struct.
-//
-//            protected - can be accessed by code in the same class or struct, or by code in a derived
-//                        class.
-//
-//             internal - can be accessed by code in the same assembly but not in any other assembly.
-//
-//        One additional modifier is "protected internal" which means access is available to any code in
-//        this assembly or from within a derived class in another assembly.
-//
-//        Note that the default access for class definitions is "internal". In this case, we could have
-//        used "internal" either explicitly or implicitly and the result would have been the same.
-//
-public class Program
+class Program
 {
     // A "static" method in C# (just as in C++) denotes a class method as opposed to an instance method.
     // The "static" entry point "Main" serves as the entry point for the app. This method can use any one
@@ -47,12 +27,7 @@ public class Program
     //        above. In that case though, the one "Main" that is to be used as the program entry point
     //        must be specified to the C# compiler.
     //
-    // NOTE3: Note that the method is marked as "public". Generally the access on class methods defaults
-    //        to "private". The one exception to that rule is the main entry point. In C#, the main entry
-    //        point is always public. That's not to say that you can't be explicit if you prefer (as
-    //        we've done here), but it is unnecessary.
-    //
-    public static void Main()
+    static void Main()
     {
         // Write text to the console.
         //

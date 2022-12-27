@@ -12,12 +12,12 @@ using System;
 
 namespace CommandLine
 {
-    public class Program
+    class Program
     {
         // Here we use the version of the static entry point "Main" that takes in an array of command
         // line arguments.
         //
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             // Write the number of command line arguments to the console.
             //

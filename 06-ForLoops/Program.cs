@@ -13,9 +13,9 @@ using System;
 
 namespace ForLoops
 {
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
             // Create a six element array of strings using intializers.
             //
