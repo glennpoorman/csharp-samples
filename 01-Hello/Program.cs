@@ -6,8 +6,10 @@
 // This sample shows how to define the main entry point for a C# program and also some simple console IO.
 // ------------------------------------------------------------------------------------------------------
 
-// The main class definition. Note that in C#, there are no global functions. All methods must be
-// members of a class or struct. That includes the main entry point.
+// The main class definition.
+//
+// Note that in C#, there are no global functions. All methods must be members of a class or struct.
+// That includes the main entry point.
 //
 class Program
 {
@@ -20,12 +22,14 @@ class Program
     //     static void Main(string[] args)
     //     static int  Main(string[] args)
     //
-    // NOTE1: Unlike other method names that can be overloaded, this class can only contain one method
-    //        called "Main" that fits any of the signatures listed above.
+    // Please note the following:
     //
-    // NOTE2: More than one class in an app can contain a "Main" method that fits the signatures listed
-    //        above. In that case though, the one "Main" that is to be used as the program entry point
-    //        must be specified to the C# compiler.
+    // 1. Unlike other method names that can be overloaded, this class can only contain one method called
+    //    "Main" that fits any of the signatures listed above.
+    //
+    // 2. An app may contain more than one class that has a "Main" method fitting the signatures listed
+    //    above. In that case though, the one "Main" that is to be used as the program entry point must
+    //    be specified to the C# compiler.
     //
     static void Main()
     {

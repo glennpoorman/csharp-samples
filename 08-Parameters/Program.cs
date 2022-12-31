@@ -38,9 +38,9 @@ namespace Parameters
         // parameters denoted using the "out" keyword. These are different from "ref" parameters in that
         // they are not required to have an initial value.
         //
-        // NOTE: The "Parse" method is used to convert from a string to an int. This method is defined
-        //       on all of the simple types and assumes that the string value is convertible to an
-        //       integer. If the value is not convertible to an integer, an exception will be thrown.
+        // Note that the "Parse" method is used to convert from a string to an int. This method is
+        // defined on all of the simple types and assumes that the string value is convertible to an
+        // integer. If the value is not convertible to an integer, an exception will be thrown.
         //
         static void GetInts(out int i, out int j)
         {
@@ -58,20 +58,19 @@ namespace Parameters
         static void Main()
         {
             // Call "GetInts" to read two integers from the console and return their values in the
-            // form of "out" parameters. There are a couple of important points to note here:
+            // form of "out" parameters. Please note the following:
             //
-            // NOTE1: The "out" keyword is required on both sides of the call.
+            // 1. The "out" keyword is required on both sides of the call.
             //
-            // NOTE2: We've declared the variables inline right in the call. Prior to C# 7, the
-            //        code below would have had to be written as:
+            // 2. We've declared the variables inline right in the call. Prior to C# 7, the code below
+            //    would have had to be written as:
             //
-            //            int i, j;
-            //            GetInts(out i, out j);
+            //        int i, j;
+            //        GetInts(out i, out j);
             //
-            //        While you can still write your code that way, C# 7 introduced the ability to
-            //        declare "out" variables inline when a method is called that expects an "out"
-            //        variable. This only works for "out" variables as it isn't required that they
-            //        be initialized.
+            //    While you can still write your code that way, C# 7 introduced the ability to declare
+            //    "out" variables inline when a method is called that expects an "out" variable. This
+            //    only works for "out" variables as it isn't required that they be initialized.
             //
             Console.WriteLine("Fetching integers from console.");
             GetInts(out int i, out int j);
@@ -81,7 +80,7 @@ namespace Parameters
             // compiler assumes happened in the call to "GetInts." These parameters may then be modified
             // inside of the method call.
             //
-            // NOTE: The "ref" keyword is required on both sides of the call.
+            // Note that the "ref" keyword is required on both sides of the call.
             //
             Console.WriteLine("\nSwapping...");
             SwapInts(ref i, ref j);

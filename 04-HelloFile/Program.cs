@@ -25,8 +25,8 @@ namespace HelloFile
             // specified file, writes the entirety of the string to the file, and then closes the file.
             // If the target fle already exists, it is overwritten.
             //
-            // NOTE: We include a "using" directive for "System.IO" up top so we don't need to fully
-            //       qualify the "File" class with the namespace it lives in.
+            // Note that we include a "using" directive for "System.IO" up top so we don't need to fully
+            // qualify the "File" class with the namespace it lives in.
             //
             Console.WriteLine("Creating and writing file...");
             File.WriteAllText("HelloFile.txt", "Hello World!");
