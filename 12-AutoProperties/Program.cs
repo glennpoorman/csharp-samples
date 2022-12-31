@@ -27,7 +27,7 @@ namespace AutoProperties
     {
         // Define a public auto-implemented property. Note the syntax. The "set" and "get" accessors
         // are both specified but there is no code. This is the syntax that designates these as
-        // "auto-implemented". Some things to note:
+        // "auto-implemented". Please note the following:
         //
         // 1. An anonymous private data field is created behind the scenes.
         //
@@ -85,14 +85,14 @@ namespace AutoProperties
         // Second public constructor takes input parameters for shape center and assigns them using the
         // property names directly.
         //
-        // NOTE: We no longer have private data fields that we can reference directly so even from
-        //       within this class, we can only access the x and y coordinates of the shape center by
-        //       referring to their property names ("X" and "Y").
+        // Note that we no longer have private data fields that we can reference directly so even from
+        // within this class, we can only access the x and y coordinates of the shape center by referring
+        // to their property names ("X" and "Y").
         //
         public Shape(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         // Define a "Draw" method that writes the properties to the console. Note again that we refer to
@@ -105,9 +105,9 @@ namespace AutoProperties
         }
     }
 
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
             // Create a new shape and draw the initial data to the console.
             //

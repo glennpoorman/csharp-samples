@@ -20,9 +20,9 @@ namespace Properties
         // The x and y coordinates of the shape center. These fields are now marked as private which
         // means they cannot be accessed outside of the class.
         //
-        // NOTE1: The same initialization rules apply as they did to the "public" counterparts in the
-        //        previous sample. In other words, by default these fields will be initialized to zero
-        //        but can also be explicitly initialized right in the declaration.
+        // Note that the same initialization rules apply as they did to the "public" counterparts in the
+        // previous sample. In other words, by default these fields will be initialized to zero but can
+        // also be explicitly initialized right in the declaration.
         //
         private int x;
         private int y;
@@ -45,7 +45,7 @@ namespace Properties
         // parameter list. Inside of the braces are the accessors. These look like methods within a
         // method (again missing the parameter list). The accessor "get" contains the code to return
         // the property value to the caller. Conversely, the "set" accessor contains the code to set
-        // the property. Some things to note:
+        // the property. Please note the following:
         //
         // 1. In this sample, there is a one to one correspondence between the property and the data
         //    field. This isn't required though. The underlying data representation can be anything you
@@ -100,9 +100,9 @@ namespace Properties
         }
     }
 
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
             // Create a new shape and draw the initial data to the console.
             //

@@ -34,13 +34,15 @@ using System;
 namespace Parameters
 {
     // Designate the main "Program" class as internal. Doing so makes this class inaccessible to any
-    // other assemblies that might add this assenmbly as a reference.
+    // other assemblies that might add this assembly as a reference.
     //
-    // NOTE1: All types have an accessibility level. In previous samples where we did not specify, the
-    //        accessibility level defaulted to internal which is the default for class types.
+    // Please note the following:
     //
-    // NOTE2: Class types whose definitions aren't nested within other classes can only be designated as
-    //        public or internal.
+    // 1. All types have an accessibility level. In previous samples where we did not specify, the
+    //    accessibility level defaulted to internal which is the default for class types.
+    //
+    // 2. Class types whose definitions aren't nested within other classes can only be designated as
+    //    public or internal.
     //
     internal class Program
     {
@@ -49,16 +51,16 @@ namespace Parameters
         // already noticed the discrepancy between the accessibility level on this method and the level
         // on the class.
         //
-        // NOTE1: Like classes, all members have an accessibility level. In previous samples where we
-        //        did not specify, the accessibility level on any static methods defaulted to private
-        //        which is the default for all class members.
+        // 1. Like classes, all members have an accessibility level. In previous samples where we did not
+        //    specify, the accessibility level on any static methods defaulted to private which is the
+        //    default for all class members.
         //
-        // NOTE2: A member is only as accessible as its containing type. If we marked this method as
-        //        public, it still wouldn't be accessible outside of the containing assembly only
-        //        because the class itsself is not accessible. In other words, marking a method of
-        //        an internal class as public is the same as marking it as internal. There is debate
-        //        over how you should mark your members in this case and there's really no right or
-        //        wrong here. My own preference is to stick with public members in this case.
+        // 2. A member is only as accessible as its containing type. If we marked this method as public,
+        //    it still wouldn't be accessible outside of the containing assembly only because the class
+        //    itself is not accessible. In other words, marking a method of an internal class as public
+        //    is the same as marking it as internal. There is debate over how you should mark your
+        //    members in this case and there's really no right or wrong here. My own preference is to
+        //    stick with public members in this case.
         //
         public static void PrintProgramName()
         {
@@ -67,11 +69,10 @@ namespace Parameters
 
         // Designate the main entry point as public.
         //
-        // NOTE: In our previous samples, this method defaulted to private. It really doesn't matter
-        //       what designation we apply here though as the main entry point is special in that it
-        //       is directly specified to the C# compiler as the main entry point. What that means is
-        //       that when the program is executed, this method will be called regardless of the access
-        //       modifier.
+        // In our previous samples, this method defaulted to private. It really doesn't matter what
+        // designation we apply here though as the main entry point is special in that it is directly
+        // specified to the C# compiler as the main entry point. What that means is that when the program
+        // is executed, this method will be called regardless of the access modifier.
         //
         public static void Main()
         {

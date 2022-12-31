@@ -28,9 +28,9 @@ namespace HelloStream
             // file and then close it. If a file by the same name already exists in the folder, it will
             // be overwritten.
             //
-            // NOTE: "Close" is used to close the file and release the handle. In the next section where
-            //       the file is reopened and read, you will see an alternate and preferable way to open
-            //       and close the stream with a variation of the "using" keyword.
+            // Note that "Close" is used to close the file and release the handle. In the next section
+            // where the file is reopened and read, you will see an alternate and preferable way to open
+            // and close the stream with a variation of the "using" keyword.
             //
             Console.WriteLine("Creating and writing file...");
             StreamWriter sw = new StreamWriter("HelloFile.txt");
@@ -44,17 +44,18 @@ namespace HelloStream
             // read lines of text from the file and write them to the console until the end of file is
             // reached.
             //
-            // NOTE1: The "ReadLine" method on the reader will return a null reference when the end of
-            //        file is reached.
+            // Please note the following:
             //
-            // NOTE2: An alternative method of closing the file is shown below using another form of the
-            //        "using" keyword. By creating the reader in the context of the "using" statement, we
-            //        assure that the reader is closed when the "using" statement's scope is closed (the
-            //        closing brace). This is applicable to both the reader, writer, and any other type
-            //        that implements the interface "IDisposable" (we will discuss interfaces in a later
-            //        sample).
+            // 1. The "ReadLine" method on the reader will return a null reference when the end of file
+            //    is reached.
             //
-            //        This form is preferable to the explicit "Close" call shown above.
+            // 2. An alternative method of closing the file is shown below using another form of the
+            //    "using" keyword. By creating the reader in the context of the "using" statement, we
+            //    assure that the reader is closed when the "using" statement's scope is closed (the
+            //    closing brace). This is applicable to both the reader, writer, and any other type that
+            //    implements the interface "IDisposable" (we will discuss interfaces in a later sample).
+            //
+            //    This form is preferable to the explicit "Close" call shown above.
             //
             Console.WriteLine("\nRe-opening and reading file...");
             using (StreamReader sr = new StreamReader("HelloFile.txt"))

@@ -38,8 +38,8 @@ namespace Types
         //
         public Shape(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         // Define a "Draw" method that writes the properties to the console.
@@ -51,9 +51,9 @@ namespace Types
         }
     }
 
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
             // Create a new shape.
             //

@@ -19,17 +19,17 @@ namespace CommandLine
         //
         static void Main(string[] args)
         {
-            // Write the number of command line arguments to the console.
+            // Write the number of command line arguments to the console. Please note the following:
             //
-            // NOTE1. All arrays in C# have a "Length" property that returns the current length of the
-            //        array. Note that this is a "property" as opposed to a data member or method. More
-            //        on properties in later samples.
+            // 1. All arrays in C# have a "Length" property that returns the current length of the array.
+            //    Note that this is a "property" as opposed to a data member or method. More on
+            //    properties in later samples.
             //
-            // NOTE2. The numeric value of the "Length" property is written to the output string similar
-            //        to the way a token like "%d" is used in the C "printf" function. In this case, any
-            //        additional parameters are referenced using a zero based index in between curly
-            //        braces. In this case, the "Length" property is printed in the place of the "{0}"
-            //        token. The delimiter "\n" is the same as in C++ or C.
+            // 2. The numeric value of the "Length" property is written to the output string similar to
+            //    the way a token like "%d" is used in the C "printf" function. In this case, any
+            //    additional parameters are referenced using a zero based index in between curly braces.
+            //    In this case, the "Length" property is printed in the place of the "{0}" token. The
+            //    delimiter "\n" is the same as in C++ or C.
             //
             Console.WriteLine("Number of arguments = {0}\n", args.Length);
 
