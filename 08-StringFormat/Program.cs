@@ -77,9 +77,8 @@ namespace StringFormat
             // The function then parses the string and replaces the placeholders with the values of the
             // items in the object array.
             //
-            // With string interpolation however, the work is done as the compiler interprets the string
-            // literal before the call is ever made. Once that's done, the version of "WriteLine" that is
-            // called is simply:
+            // With string interpolation however, the work is done before the call is ever made. Once the
+            // string is created and formatted, the version of "WriteLine" that is called is simply:
             //
             //     public static void WriteLine(string value);
             //
