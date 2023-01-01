@@ -104,7 +104,7 @@ namespace ToString
         //
         public override string ToString()
         {
-            return GetType().Name + ", Center = (" + Center + ")";
+            return $"{GetType().Name}, Center = ({Center})";
         }
 
         // The "Draw" method changes somewhat. Since "ToString" is overridden to do the work this method
@@ -132,7 +132,7 @@ namespace ToString
             //
             Console.WriteLine("Multiple variations on writing shape data:\n");
             Console.WriteLine(s);
-            Console.WriteLine("Shape data formatted into a string: {0}", s);
+            Console.WriteLine($"Shape data formatted into a string: {s}");
             Console.WriteLine("A string resulting from concatenation: " + s);
             Console.WriteLine("Calling the \"Draw\" method: ");
             s.Draw();

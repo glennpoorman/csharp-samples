@@ -107,7 +107,7 @@ namespace Struct
         public void Draw()
         {
             Console.WriteLine(this);
-            Console.WriteLine("Center = ({0}, {1})", Center.X, Center.Y);
+            Console.WriteLine($"Center = ({Center.X}, {Center.Y})");
         }
     }
 

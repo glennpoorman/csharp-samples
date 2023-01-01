@@ -58,7 +58,7 @@ namespace Derived
         public virtual void Draw()
         {
             Console.WriteLine(this);
-            Console.WriteLine("Center = ({0}, {1})", Center.X, Center.Y);
+            Console.WriteLine($"Center = ({Center.X}, {Center.Y})");
         }
     }
 
@@ -97,7 +97,7 @@ namespace Derived
         public override void Draw()
         {
             base.Draw();
-            Console.WriteLine("Radius = ({0})", Radius);
+            Console.WriteLine($"Radius = ({Radius})");
         }
     }
 
@@ -133,7 +133,7 @@ namespace Derived
         public override void Draw()
         {
             base.Draw();
-            Console.WriteLine("Label = \"{0}\"", Label);
+            Console.WriteLine($"Label = \"{Label}\"");
         }
     }
 

@@ -76,7 +76,7 @@ namespace Abstract
         //
         public override string ToString()
         {
-            return GetType().Name + "-" + Version + ", Center = (" + Center + ")";
+            return $"{GetType().Name}-{Version}, Center = ({Center})";
         }
 
         // Virtual "Draw" method.
@@ -139,7 +139,7 @@ namespace Abstract
         //
         public override string ToString()
         {
-            return base.ToString() + ", Radius = (" + Radius + ")";
+            return $"{base.ToString()}, Radius = ({Radius})";
         }
 
         // A note about the "Draw" method.
@@ -191,7 +191,7 @@ namespace Abstract
         //
         public override string ToString()
         {
-            return base.ToString() + ", Width = (" + Width + "), Height = (" + Height + ")";
+            return $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
         }
 
         // Define/override the "Version" property defined as abstract in the base class.

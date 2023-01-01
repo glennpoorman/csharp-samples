@@ -78,7 +78,7 @@ namespace Class
         public void Draw()
         {
             Console.WriteLine(this);
-            Console.WriteLine("Center = ({0}, {1})", x, y);
+            Console.WriteLine($"Center = ({x}, {y})");
         }
     }
 
