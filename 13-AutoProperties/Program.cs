@@ -101,7 +101,7 @@ namespace AutoProperties
         public void Draw()
         {
             Console.WriteLine(this);
-            Console.WriteLine("Center = ({0}, {1})", X, Y);
+            Console.WriteLine($"Center = ({X}, {Y})");
         }
     }
 

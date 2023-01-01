@@ -47,7 +47,7 @@ namespace Types
         public void Draw()
         {
             Console.WriteLine(this);
-            Console.WriteLine("Center = ({0}, {1})", X, Y);
+            Console.WriteLine($"Center = ({X}, {Y})");
         }
     }
 
@@ -87,8 +87,8 @@ namespace Types
             //
             i2 = 101;
             Console.WriteLine("\nPrinting values from two \"int\" variables.");
-            Console.WriteLine("i1 = {0}", i1);
-            Console.WriteLine("i2 = {0}", i2);
+            Console.WriteLine($"i1 = {i1}");
+            Console.WriteLine($"i2 = {i2}");
 
             // Since all types in C# derive either directly or indirectly from "object", any variable of
             // any type can be assigned to a variable of type "object." What this actually means though

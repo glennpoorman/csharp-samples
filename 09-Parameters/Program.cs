@@ -18,8 +18,8 @@ namespace Parameters
         //
         static void PrintInts(int i, int j)
         {
-            Console.WriteLine("Integer 1 = {0}.", i);
-            Console.WriteLine("Integer 2 = {0}.", j);
+            Console.WriteLine($"Integer 1 = {i}.");
+            Console.WriteLine($"Integer 2 = {j}.");
         }
 
         // Static method swaps two specified integer values. These are pass by reference parameters
