@@ -111,9 +111,9 @@ namespace Struct
         }
     }
 
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
             // Create a shape using the default constructor and output the shape center to the
             // console. The shape center will initialize to zero.

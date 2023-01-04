@@ -11,61 +11,77 @@
 //
 // Look at these files in the following order:
 //
+//     Math.cs
 //     Shapes.cs
 //     MoreNamespaces.cs
 //
 // ------------------------------------------------------------------------------------------------------
 
+// Note that we add the using statement for the namespace "Poorman.MoreNamespaces.Math" so that we can
+// reference the point struct without having to fully qualify the type name.
+//
+using Poorman.MoreNamespaces.Math;
 using System;
 
 // In this sample, we'll use a more complex naming scheme for our namespaces. Generally it's up to the
 // developer or development organization to determine how to organize namespace. One typical scenario you
 // might see (which we'll use here) is something like "Company.Product.Component" (where the appropriate
 // names are filled in). In this sample, I will group the main class and entry point into the namespace
-// "Poorman.MoreNamespaces.Main" while putting the shape class in "Poorman.MoreNamespaces.Shapes".
+// "Poorman.MoreNamespaces.Main" while putting the shape classes in "Poorman.MoreNamespaces.Shapes" and
+// the point struct in "Poorman.MoreNamespaces.Math".
+//
+// Note that to reference any of the classes defined here from any other namespace, the class name will
+// need to be qualified using the namespace. This can be done by using the fully qualified name as in:
+//
+//     Poorman.MoreNamespaces.Shapes.Circle
+//
+// It can be partially qualified if used from another namespace under "Poorman.MoreNamespaces":
+//
+//     Shapes.Circle
+//
+// Or lastly, you can put a using statement in the code as in:
+//
+//     using Poorman.MoreNamespaces.Shapes;
+//
+// and then simply reference the type as "Circle".
 //
 namespace Poorman.MoreNamespaces.Shapes
 {
-    // Define the base "Shape" class. Note that this class now lives within the "Shapes" namespace.
+    // Define the "Shape" class.
     //
-    public class Shape
+    public abstract class Shape
     {
-        // The x and y auto-implemented properties of the shape center.
+        // The shape center property.
         //
-        public int X { get; set; }
-        public int Y { get; set; }
+        public Point Center { get; set; }
 
         // First public constructor takes no arguments and initializes the x and y properties to zero.
         //
         public Shape()
-        {}
+        { }
 
-        // Second public constructor takes input parameters for x and y and assigns them to the
-        // properties.
+        // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(int x, int y)
+        public Shape(Point center)
         {
-            this.X = x;
-            this.Y = y;
+            Center = center;
         }
 
         // Override "ToString" from the base "object" class.
         //
-        public override string ToString()
-        {
-            return "(" + X.ToString() + ", " + Y.ToString() + ")";
-        }
+        public override string ToString() => $"{GetType().Name}-{Version}, Center = ({Center})";
 
         // Virtual "Draw" method.
         //
-        public virtual void Draw()
-        {
-            Console.WriteLine("Center = {0}", this);
-        }
+        public virtual void Draw() => Console.WriteLine(this);
+
+        // Define an abstract read-only property to return a string representing the current version of
+        // a given type of shape.
+        //
+        public abstract string Version { get; }
     }
 
-    // Define a class "Circle" that derives from "Shape" and adds a radius. Like "Shape", this class
-    // resides within the "Shapes" namespace.
+    // Define a class "Circle" that derives from "Shape" and adds a radius.
     //
     public class Circle : Shape
     {
@@ -73,24 +89,24 @@ namespace Poorman.MoreNamespaces.Shapes
         //
         public int Radius { get; set; }
 
-        // Circle constructor takes x,y coordinates of the circle center as well as the circle radius.
+        // Circle constructor takes a circle center point as well as the circle radius.
         //
-        public Circle(int x, int y, int radius) : base(x, y)
+        public Circle(Point center, int radius)
+            : base(center)
         {
-            this.Radius = radius;
+            Radius = radius;
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Radius = ({0})", this.Radius);
-        }
+        public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
+
+        // Define/override the "Version" property.
+        //
+        public override string Version => "1.0.1";
     }
 
-    // Define a class "Rectangle" that derives from "Shape" and adds a width and height. Like "Shape" and
-    // "Circle", this class resides within the "Shapes" namespace.
+    // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
     //
     public class Rectangle : Shape
     {
@@ -99,22 +115,21 @@ namespace Poorman.MoreNamespaces.Shapes
         public int Width { get; set; }
         public int Height { get; set; }
 
-        // Rectangle constructor takes x,y coordinates of the center as well as the rectangle width and
-        // height.
+        // Circle constructor takes a center point as well as the rectangle width and height.
         //
-        public Rectangle(int x, int y, int width, int height) : base(x, y)
+        public Rectangle(Point center, int width, int height)
+            : base(center)
         {
-            this.Width  = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Width = ({0})", this.Width);
-            Console.WriteLine("Height = ({0})", this.Height);
-        }
+        public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
+
+        // Define/override the "Version" property.
+        //
+        public override string Version => "1.0.0";
     }
 }
