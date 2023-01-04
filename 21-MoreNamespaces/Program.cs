@@ -11,57 +11,67 @@
 //
 // Look at these files in the following order:
 //
+//     Math.cs
 //     Shapes.cs
 //     MoreNamespaces.cs
 //
 // ------------------------------------------------------------------------------------------------------
 
+// Add additional using statements so that both the point struct and the classes in the "Shapes"
+// namespace can be referenced without having to fully qualify the name.
+//
+//using Poorman.MoreNamespaces.Math;
+//using Poorman.MoreNamespaces.Shapes;
 using System;
 
 // In this sample, we'll use a more complex naming scheme for our namespaces. Generally it's up to the
 // developer or development organization to determine how to organize namespace. One typical scenario you
 // might see (which we'll use here) is something like "Company.Product.Component" (where the appropriate
 // names are filled in). In this sample, I will group the main class and entry point into the namespace
-// "Poorman.MoreNamespaces.Main" while putting the shape class in "Poorman.MoreNamespaces.Shapes".
+// "Poorman.MoreNamespaces.Main" while putting the shape classes in "Poorman.MoreNamespaces.Shapes" and
+// the point struct in "Poorman.MoreNamespaces.Math".
 //
 namespace Poorman.MoreNamespaces.Main
 {
     // Note that our main "Test" class now resides within the "Poorman.MoreNamespaces.Main" namespace.
     //
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
-            // Create a circle object and a rectangle object. Notice the fully qualified name including
-            // the namespace they are defined in. Another option is to add an additional "using"
-            // statement for the "Poorman.MoreNamespaces.Shapes" namespace under the "using System" line.
+            // Create a point object and then use it as a center point to create a circle object. Notice
+            // the fully qualified name including the namespace they are defined in. Another option is to
+            // add additional "using" statements for our two other namespaces in which case you can then
+            // reference the types without qualifying the names at all.
             //
+            //     using Poorman.MoreNamespaces.Math;
             //     using Poorman.MoreNamespaces.Shapes;
             //
-            //     Shape s1 = new Circle(...)
+            //     Shape s1 = new Circle(new Point(...), ...)
             //
-            // If you don't fully qualify the name and don't add a "using" for the namespace, a compiler
-            // error will be generated stating that the class could not be found.
+            // If you don't fully qualify the names and don't add the "using" statements for the
+            // namespaces, a compiler error will be generated stating that the class could not be found.
             //
-            Poorman.MoreNamespaces.Shapes.Shape s1 = new Poorman.MoreNamespaces.Shapes.Circle(20, 21, 10);
+            Poorman.MoreNamespaces.Math.Point center = new Poorman.MoreNamespaces.Math.Point(20, 21);
+            Poorman.MoreNamespaces.Shapes.Shape s1 = new Poorman.MoreNamespaces.Shapes.Circle(center, 10);
 
-            // Now create a rectangle object. Note the difference in how the name is qualified. Since the
-            // current namespace and the namespace where the shape classes live both share some common
-            // ancestors ("Poorman.MoreNamespaces"), that part of the name can be left off and we can
-            // simply reference the class as "Shapes.Rectangle".
+            // Now create a rectangle object. Note the difference in how the names are qualified. Since
+            // the current namespace and the namespaces where the point struct and shape classes live all
+            // share a common ancestor ("Poorman.MoreNamespaces"), that part of the name can be left off
+            // we can get by with only partially qualifying the names as in "Shapes.Rectangle".
             //
-            Shapes.Shape s2 = new Shapes.Rectangle(10, 11, 12, 13);
+            Shapes.Shape s2 = new Shapes.Rectangle(new Math.Point(10, 11), 12, 13);
 
             // For each shape, call the "Draw" method to write the data to the console.
             //
-            // Note the call of "GetType." This is a method on the base "object" class and writing it to
-            // the console outputs the fully qualified type name including the namespace.
+            // Note that before calling the draw method, we're calling "GetType" and writing the full
+            // class name so that we can see the fully qualified name including the namespace.
             //
             Console.WriteLine("Writing shape data to the console.\n");
-            Console.WriteLine(s1.GetType());
+            Console.WriteLine(s1.GetType().FullName);
             s1.Draw();
             Console.WriteLine();
-            Console.WriteLine(s2.GetType());
+            Console.WriteLine(s2.GetType().FullName);
             s2.Draw();
 
             // Wait for <ENTER> to finish.
