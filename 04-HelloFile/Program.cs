@@ -20,7 +20,7 @@ namespace HelloFile
             // The "System.IO.File" class provides static methods for the creation, copying, deletion,
             // moving, and opening of a single file.
             //
-            // Call the static "File.WriteAllText" method. The first argument is the full  path name of
+            // Call the static "File.WriteAllText" method. The first argument is the full path name of
             // the file and the second is the text to write to the file. Calling this method creates the
             // specified file, writes the entirety of the string to the file, and then closes the file.
             // If the target fle already exists, it is overwritten.
@@ -33,7 +33,7 @@ namespace HelloFile
 
             // To read the contents of the file back again, call the static "File.ReadAllText" method.
             // The first an only argument is the full path name of the file (here we use the file we
-            // just created). Calling this method opens the file, reads the entirey of the file into
+            // just created). Calling this method opens the file, reads the entirety of the file into
             // a single text string, closes the file, and returns that string to the caller.
             //
             Console.WriteLine("\nRe-opening and reading file...");
