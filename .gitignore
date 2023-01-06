@@ -1,4 +1,5 @@
 # Build output folders
 .vs/
+.vscode/
 bin/
 obj/
