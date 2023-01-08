@@ -32,7 +32,7 @@ namespace HelloFile
             File.WriteAllText("HelloFile.txt", "Hello World!");
 
             // To read the contents of the file back again, call the static "File.ReadAllText" method.
-            // The first an only argument is the full path name of the file (here we use the file we
+            // The first and only argument is the full path name of the file (here we use the file we
             // just created). Calling this method opens the file, reads the entirety of the file into
             // a single text string, closes the file, and returns that string to the caller.
             //
@@ -45,21 +45,16 @@ namespace HelloFile
             Console.Write("\nDelete the file [Y or N]? ");
             string strYesNo = Console.ReadLine();
 
-            // Use the static string compare method to see how the prompt was answered. The third bool
-            // argument specifies that the string compare should be case-insensitive.
+            // Call the "ToUpper" method on the string to force the string to all uppercase. Then
+            // use a simple equality test to see how the prompt was answered.
             //
-            if (string.Compare(strYesNo, "Y", true) == 0)
+            if (strYesNo.ToUpper() == "Y")
             {
                 // Use the static "File.Delete" method to remove the file from the local folder.
                 //
                 File.Delete("HelloFile.txt");
                 Console.WriteLine("File deleted.");
             }
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

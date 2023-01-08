@@ -52,7 +52,7 @@ namespace Poorman.MoreNamespaces.Main
             // If you don't fully qualify the names and don't add the "using" statements for the
             // namespaces, a compiler error will be generated stating that the class could not be found.
             //
-            Poorman.MoreNamespaces.Math.Point center = new Poorman.MoreNamespaces.Math.Point(20, 21);
+            Poorman.MoreNamespaces.Math.Point center = new(20, 21);
             Poorman.MoreNamespaces.Shapes.Shape s1 = new Poorman.MoreNamespaces.Shapes.Circle(center, 10);
 
             // Now create a rectangle object. Note the difference in how the names are qualified. Since
@@ -73,11 +73,6 @@ namespace Poorman.MoreNamespaces.Main
             Console.WriteLine();
             Console.WriteLine(s2.GetType().FullName);
             s2.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

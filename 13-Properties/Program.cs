@@ -106,7 +106,7 @@ namespace Properties
         {
             // Create a new shape and draw the initial data to the console.
             //
-            Shape s1 = new Shape(11, 15);
+            Shape s1 = new(11, 15);
             s1.Draw();
 
             // Reset the X and Y coordinates. Note that the fields can no longer be referenced directly
@@ -122,13 +122,8 @@ namespace Properties
             // This uses the "get" accessors behind the scenes.
             //
             Console.WriteLine("\nCreate 2nd shape copying properties from 1st.");
-            Shape s2 = new Shape(s1.X, s1.Y);
+            Shape s2 = new(s1.X, s1.Y);
             s2.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

@@ -10,9 +10,11 @@ These samples will include some language features as new as C# 9. You should hav
 
 It is assumed that the reader has some experience with programming languages and, more specifically, experience with C++. Several concepts that are already present in a language like C++ won't be explained here and you need to be familiar with them. Some of those concepts are (but are not limited to):
 
-1. Class types (*class* and *struct*)
-2. Class vs instance members (*static*)
-3. Basic access (*public*, *private*, *protected*)
+1. Basic programming constructs (variables, arrays, loops, io).
+2. Class types (*class* and *struct*)
+3. Class vs instance members (*static*)
+4. Basic access (*public*, *private*, *protected*)
+5. Namespaces
 
 ## How to proceed
 
@@ -20,7 +22,9 @@ All of the details are in the code. Go through the numbered samples one at a tim
 
 ### Visual Studio
 
-Each folder contains a solution file and a project file. Open the solution file in Visual Studio (2019 or later), build, and then run. Note that these are all console apps so each one has code to pause and wait for you to hit <enter> before exiting and closing the window.
+Each folder contains a solution file and a project file. Open the solution file in Visual Studio (2019 or later), build, and then run. Note that these are all console apps. That means that if you run any of the apps from within Visual Studio, the console could disappear before you have a chance to see anything.
+
+By default, Visual Studio 2019 pauses at the end of a console application and prompts the user to hit any key to close the console. If you're not seeing this, you need to open up your options dialog *Tools|Options*, go to the *General* section under *Debugging*, and make sure that the option *Automatically close the console when debugging stops* is **NOT** selected. 
 
 ### Visual Studio Code
 

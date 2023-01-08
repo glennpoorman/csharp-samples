@@ -77,11 +77,6 @@ namespace Implicit
                              new DateTime(1964, 4, 6) };
             foreach (var v in a2)
                 Console.WriteLine(v);
-
-            // Wait for <enter> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

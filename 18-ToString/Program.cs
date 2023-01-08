@@ -124,7 +124,7 @@ namespace ToString
         {
             // Create a shape object.
             //
-            Shape s = new Shape(new Point(11, 15));
+            Shape s = new(new Point(11, 15));
 
             // Now use some different variations to write the shape data to the console. In any
             // variation short of accessing the fields directly, the "ToString" method is called to
@@ -136,11 +136,6 @@ namespace ToString
             Console.WriteLine("A string resulting from concatenation: " + s);
             Console.WriteLine("Calling the \"Draw\" method: ");
             s.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

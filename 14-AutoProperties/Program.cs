@@ -111,7 +111,7 @@ namespace AutoProperties
         {
             // Create a new shape and draw the initial data to the console.
             //
-            Shape s1 = new Shape(11, 15);
+            Shape s1 = new(11, 15);
             s1.Draw();
 
             // Reset the X and Y coordinates. Outside of the class definition we simply refer to the
@@ -125,13 +125,8 @@ namespace AutoProperties
             // Create another shape initializing it with the X and Y properties from the first shape.
             //
             Console.WriteLine("\nCreate 2nd shape copying properties from 1st.");
-            Shape s2 = new Shape(s1.X, s1.Y);
+            Shape s2 = new(s1.X, s1.Y);
             s2.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

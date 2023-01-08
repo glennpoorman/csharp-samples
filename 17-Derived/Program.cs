@@ -144,8 +144,11 @@ namespace Derived
             // Create objects using each of the classes defined above. Note that each of them are
             // assigned to a variable of type "Shape."
             //
-            Point center = new Point(10, 12);
-            Shape s1 = new Shape(center);
+            // Note that for "Circle" and "CircleWithLabel", we cannot use the target-typed new
+            // expression as we're assigning the result to a variable of type "Shape".
+            //
+            Point center = new(10, 12);
+            Shape s1 = new(center);
             Shape s2 = new Circle(center, 10);
             Shape s3 = new CircleWithLabel(center, 10, "Derived");
 
@@ -157,11 +160,6 @@ namespace Derived
             s2.Draw();
             Console.WriteLine();
             s3.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

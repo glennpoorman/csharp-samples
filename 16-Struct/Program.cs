@@ -119,7 +119,7 @@ namespace Struct
             // console. The shape center will initialize to zero.
             //
             Console.WriteLine("\nCreating shape s1 with default constructor.");
-            Shape s1 = new Shape();
+            Shape s1 = new();
             s1.Draw();
 
             // Create a point.
@@ -127,19 +127,14 @@ namespace Struct
             // Note that even though a struct is a value type and created on the stack, we still use
             // "new" to create the point.
             //
-            Point center = new Point(10, 100);
+            Point center = new(10, 100);
 
             // Create another shape using the constructor that takes a center point specifying
             // the point we just created.
             //
             Console.WriteLine("\nCreating shape s2 specifying \"Point\" struct for center.");
-            Shape s2 = new Shape(center);
+            Shape s2 = new(center);
             s2.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

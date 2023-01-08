@@ -4,6 +4,7 @@ setlocal
 for /D %%v in (*.*) do (
   pushd %%v
   echo Cleaning %%v ...
+  if exist Properties\nul rmdir /s /q Properties
   if exist bin\nul rmdir /s /q bin
   if exist obj\nul rmdir /s /q obj
   if exist .vs\nul rmdir /s /q .vs

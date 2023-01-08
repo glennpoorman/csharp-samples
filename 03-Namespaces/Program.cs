@@ -21,8 +21,6 @@
 //             static void Main()
 //             {
 //                 System.Console.WriteLine("Hello World!");
-//                 System.Console.Write("\nHit <ENTER> to finish: ");
-//                 System.Console.ReadLine();
 //             }
 //         }
 //     }
@@ -38,12 +36,6 @@
 // specifying that namespace in every use essentially importing those types into the current namespace.
 // Here we use it for the "System" namespace which will allow us to drop the "System" namespace from our
 // calls to the static IO methods on the "Console" class.
-//
-// Example: "System.Console.ReadLine" can be specified as "Console.ReadLine"
-//
-// On the surface it doesn't seem like much. But namespaces can be nested and it's not uncommon for a
-// full namespace specification to get rather long and unwieldy. This goes a very long way in cleaning
-// up code and making it more readable.
 //
 using System;
 
@@ -93,11 +85,6 @@ namespace Namespaces
             //
             for (int i = 0; i < args.Length; i++)
                 Console.WriteLine("args[{0}] = {1}", i, args[i]);
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }
