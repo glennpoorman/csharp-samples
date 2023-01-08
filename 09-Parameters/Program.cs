@@ -1,10 +1,30 @@
 // ------------------------------------------------------------------------------------------------------
 // Parameters
 //
-// Different kinds of function parameters in C#.
+// Function parameters in C#.
 //
-// C# doesn't use pointers the way C++ or C does and only uses references as parameters to and from
-// methods. The syntax of those references is different than C++ as well.
+// C# has no notion of pointers. The builtin types (int, double, bool, etc) are value types while classes
+// are reference types. By default when a variable is passed to a function, it is passed by value. The
+// resulting behavior depends on the type.
+//
+// 1. For value types, it means that a copy of the value is passed to the function. The implementation of
+//    that function can change the value but the caller will never see it because the function received a
+//    a copy.
+//
+// 2. For reference types, it means that a copy of the reference is passed to the function. The function
+//    can then manipulate the object that the variable references and the caller will see those changes.
+//    The function cannot, however, replace the object being referenced.
+//
+// C# does allow pass by reference. In order to take advantage of this, a function must specifically be
+// written to take a reference parameter and the caller must explicitly pass by reference. There are two
+// types of pass by reference parameters.
+//
+// 1. Reference "ref" parameters specify that a parameter may be changed by the function and that its
+//    initial value may be used. These types of parameters must be initialized and their values may or
+//    may not change when the function is called.
+//
+// 2. Output "out" parameters will have their values provided by the function. It is not required that
+//    these parameters be initialized.
 // ------------------------------------------------------------------------------------------------------
 
 using System;
@@ -44,15 +64,11 @@ namespace Parameters
         //
         static void GetInts(out int i, out int j)
         {
-            string input;
-
             Console.Write("Enter integer 1: ");
-            input = Console.ReadLine();
-            i = int.Parse(input);
+            i = int.Parse(Console.ReadLine());
 
             Console.Write("Enter integer 2: ");
-            input = Console.ReadLine();
-            j = int.Parse(input);
+            j = int.Parse(Console.ReadLine());
         }
 
         static void Main()
@@ -90,11 +106,6 @@ namespace Parameters
             //
             Console.WriteLine("\nPrinting results.");
             PrintInts(i, j);
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

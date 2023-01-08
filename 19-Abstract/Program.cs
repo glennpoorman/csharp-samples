@@ -219,11 +219,6 @@ namespace Abstract
             //
             s1.Draw();
             s2.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

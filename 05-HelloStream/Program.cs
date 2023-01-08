@@ -46,8 +46,8 @@ namespace HelloStream
             //
             // Please note the following:
             //
-            // 1. The "ReadLine" method on the reader will return a null reference when the end of file
-            //    is reached.
+            // 1. The "ReadToEnd" method reads all of the characters in the stream (in this case, the
+            //    entirety of the file) and returns a single string.
             //
             // 2. An alternative method of closing the file is shown below using another form of the
             //    "using" keyword. By creating the reader in the context of the "using" statement, we
@@ -55,30 +55,23 @@ namespace HelloStream
             //    closing brace). This is applicable to both the reader, writer, and any other type that
             //    implements the interface "IDisposable" (we will discuss interfaces in a later sample).
             //
-            //    This form is preferable to the explicit "Close" call shown above.
+            //    This form is preferable to the explicit "Close" call we used when we wrote the file.
             //
             Console.WriteLine("\nRe-opening and reading file...");
             using (StreamReader sr = new StreamReader("HelloFile.txt"))
             {
-                string strText;
-                while ((strText = sr.ReadLine()) != null)
-                    Console.WriteLine(strText);
+                string strText = sr.ReadToEnd();
+                Console.WriteLine(strText);
             }
 
             // Prompt the user to see if the file should be deleted or not.
             //
             Console.Write("\nDelete the file [Y or N]? ");
-            string strYesNo = Console.ReadLine();
-            if (string.Compare(strYesNo, "Y", true) == 0)
+            if (Console.ReadLine().ToUpper() == "Y")
             {
                 File.Delete("HelloFile.txt");
                 Console.WriteLine("File deleted.");
             }
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

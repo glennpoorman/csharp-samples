@@ -57,7 +57,7 @@ namespace Types
         {
             // Create a new shape.
             //
-            Shape s1 = new Shape(1, 2);
+            Shape s1 = new(1, 2);
 
             // Since classes are reference types, declaring another shape s2 and assigning s1 to it
             // results in two variables referencing the same object.
@@ -143,11 +143,6 @@ namespace Types
             Console.WriteLine("\nPrinting shapes cast back from \"object\".");
             s3.Draw();
             s4.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

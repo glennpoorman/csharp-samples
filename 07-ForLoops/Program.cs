@@ -32,11 +32,6 @@ namespace ForLoops
             Console.WriteLine("\nNow printing using a C# \"foreach\" loop:");
             foreach (string n in names)
                 Console.WriteLine("    " + n);
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

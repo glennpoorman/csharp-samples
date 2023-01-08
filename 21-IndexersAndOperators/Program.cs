@@ -202,14 +202,14 @@ namespace IndexersAndOperators
         public static Circle operator -(Circle c) => new Circle(-c.Center, -c.Radius);
     }
 
-    public class Program
+    class Program
     {
         static void Main()
         {
             // Create some circles.
             //
-            Circle c1 = new Circle(new Point(12, 13), 10);
-            Circle c2 = new Circle(new Point(23, 22), 100);
+            Circle c1 = new(new Point(12, 13), 10);
+            Circle c2 = new(new Point(23, 22), 100);
 
             // Write the intial circles to the console.
             //
@@ -221,7 +221,7 @@ namespace IndexersAndOperators
             // Create a 3rd circle. Use the indexing operator (both set and get) to assign value from
             // the 1st circle to the new circle.
             //
-            Circle c3 = new Circle(new Point(), 200);
+            Circle c3 = new(new Point(), 200);
             c3[0] = c1[0];
             c3[1] = c1[1];
             Console.WriteLine("\nCreated 3rd circle assigning x/y from 1st.\n");
@@ -238,11 +238,6 @@ namespace IndexersAndOperators
             Circle c4 = -c3;
             Console.WriteLine("\nCreated 4th circle negating the 3rd.\n");
             c4.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

@@ -63,6 +63,12 @@ namespace Arrays
             // to zero on creation. Just to give it some other values, use a pair of loops to initialize
             // the array as if it were a 4x4 identity matrix (setting all elements where i==j to 1).
             //
+            // Note the use of the "GetLength" method as opposed to the "Length" property. When using
+            // a multidimensional array, the "Length" property will return the total number of array
+            // entries. With this array, for example, the value of "Length" would be 16. To get the
+            // length for a given dimension, you call "GetLength" and specify the dimension you want
+            // the length for.
+            //
             int[,] iArray3 = new int[4, 4];
             for (int i = 0; i < iArray3.GetLength(0); i++)
                 for (int j = 0; j < iArray3.GetLength(1); j++)
@@ -127,11 +133,6 @@ namespace Arrays
                     Console.Write(iArray4[i][j] + " ");
                 Console.WriteLine();
             }
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

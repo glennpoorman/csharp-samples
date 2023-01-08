@@ -30,6 +30,7 @@
 // ------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 
 namespace Parameters
 {
@@ -46,7 +47,7 @@ namespace Parameters
     //
     internal class Program
     {
-        // Define a static method to print the program name to the console and designate the method as
+        // Define a static method to print the process name to the console and designate the method as
         // public which means its accessible from anywhere. Please see the notes below in case you've
         // already noticed the discrepancy between the accessibility level on this method and the level
         // on the class.
@@ -55,16 +56,19 @@ namespace Parameters
         //    specify, the accessibility level on any static methods defaulted to private which is the
         //    default for all class members.
         //
-        // 2. A member is only as accessible as its containing type. If we marked this method as public,
-        //    it still wouldn't be accessible outside of the containing assembly only because the class
-        //    itself is not accessible. In other words, marking a method of an internal class as public
-        //    is the same as marking it as internal. There is debate over how you should mark your
+        // 2. A member is only as accessible as its containing type. Even though we mark this method as
+        //    public, it is still not accessible outside of the containing assembly only because the
+        //    class itself is not accessible. In other words, marking a method of an internal class as
+        //    public is the same as marking it as internal. There is debate over how you should mark your
         //    members in this case and there's really no right or wrong here. My own preference is to
         //    stick with public members in this case.
         //
-        public static void PrintProgramName()
+        public static void PrintProcessName()
         {
-            Console.Write("Access");
+            // Call the static "GetCurrentProcess" method on the class "Process" from the namespace
+            // "System.Diagnostics" to the the process name and write it to the console.
+            //
+            Console.WriteLine(Process.GetCurrentProcess().ProcessName);
         }
 
         // Designate the main entry point as public.
@@ -79,13 +83,7 @@ namespace Parameters
             // Call the static function to print the program name to the console.
             //
             Console.Write("Program name: ");
-            PrintProgramName();
-            Console.WriteLine();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
+            PrintProcessName();
         }
     }
 }

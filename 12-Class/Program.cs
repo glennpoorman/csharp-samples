@@ -92,12 +92,12 @@ namespace Class
             //
             // Also note that this call fires off the second shape constructor.
             //
-            Shape s1 = new Shape(1, 2);
+            Shape s1 = new(1, 2);
 
             // Create another shape calling the first constructor which initializes the coordinates to
             // zero. Then access the public fields to set the coordinates after the fact.
             //
-            Shape s2 = new Shape();
+            Shape s2 = new();
             s2.x = 3;
             s2.y = 4;
 
@@ -106,11 +106,6 @@ namespace Class
             Console.WriteLine("Printing the \"Shape\" objects\n");
             s1.Draw();
             s2.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }
