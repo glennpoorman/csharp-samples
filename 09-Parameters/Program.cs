@@ -3,28 +3,23 @@
 //
 // Function parameters in C#.
 //
-// C# has no notion of pointers. The builtin types (int, double, bool, etc) are value types while classes
-// are reference types. By default when a variable is passed to a function, it is passed by value. The
-// resulting behavior depends on the type.
+// By default, function parameters are passed by value in C#.
 //
-// 1. For value types, it means that a copy of the value is passed to the function. The implementation of
-//    that function can change the value but the caller will never see it because the function received a
-//    a copy.
+// 1. For value types, this means that a copy of the value is passed to the function.
 //
-// 2. For reference types, it means that a copy of the reference is passed to the function. The function
-//    can then manipulate the object that the variable references and the caller will see those changes.
-//    The function cannot, however, replace the object being referenced.
+// 2. For reference types, a copy of the reference is passed to the function and both the variable in
+//    the caller and the variable in the function refer to the same object.
 //
-// C# does allow pass by reference. In order to take advantage of this, a function must specifically be
-// written to take a reference parameter and the caller must explicitly pass by reference. There are two
-// types of pass by reference parameters.
+// C# also has reference parameters "ref" and output parameters "out".
 //
-// 1. Reference "ref" parameters specify that a parameter may be changed by the function and that its
-//    initial value may be used. These types of parameters must be initialized and their values may or
-//    may not change when the function is called.
+// 1. Reference parameters specify that a parameter may be changed by the function and that its initial
+//    value might be required to do so. These types of parameters must be initialized and their values
+//    may or may not change when the function is called.
 //
-// 2. Output "out" parameters will have their values provided by the function. It is not required that
-//    these parameters be initialized.
+// 2. Output parameters specify that their value will be provided by the function. It is not required
+//    that these parameters be initialized.
+//
+// In order to use "ref" or "out" parameters, both caller and callee have to specifically specify them.
 // ------------------------------------------------------------------------------------------------------
 
 using System;
@@ -73,8 +68,8 @@ namespace Parameters
 
         static void Main()
         {
-            // Call "GetInts" to read two integers from the console and return their values in the
-            // form of "out" parameters. Please note the following:
+            // Call "GetInts" to read two integers from the console and return their values in the form
+            // of "out" parameters. Please note the following:
             //
             // 1. The "out" keyword is required on both sides of the call.
             //
