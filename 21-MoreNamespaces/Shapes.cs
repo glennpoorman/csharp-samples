@@ -62,10 +62,7 @@ namespace Poorman.MoreNamespaces.Shapes
 
         // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(Point center)
-        {
-            Center = center;
-        }
+        public Shape(Point center) => Center = center;
 
         // Override "ToString" from the base "object" class.
         //
@@ -92,10 +89,7 @@ namespace Poorman.MoreNamespaces.Shapes
         // Circle constructor takes a circle center point as well as the circle radius.
         //
         public Circle(Point center, int radius)
-            : base(center)
-        {
-            Radius = radius;
-        }
+            : base(center) => Radius = radius;
 
         // Override "ToString" from the base "object" class.
         //
@@ -115,7 +109,7 @@ namespace Poorman.MoreNamespaces.Shapes
         public int Width { get; set; }
         public int Height { get; set; }
 
-        // Circle constructor takes a center point as well as the rectangle width and height.
+        // Rectangle constructor takes a center point as well as the rectangle width and height.
         //
         public Rectangle(Point center, int width, int height)
             : base(center)

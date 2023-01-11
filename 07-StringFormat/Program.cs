@@ -9,7 +9,7 @@
 // the class "std::stringstream" allowing you to write values to strings. MFC provided the "CString"
 // class which contained the "Format" method.
 //
-// C# provides two methods for formatting strings.
+// C# provides a few methods for formatting strings.
 //
 // 1. Composite Formatting. This method takes a composite format string along with a list of objects.
 //    The string consists of fixed text mixed with indexed placeholders. When the string is formatted,

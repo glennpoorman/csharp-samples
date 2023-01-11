@@ -22,7 +22,7 @@ namespace Derived
             Y = y;
         }
 
-        // The X and Y auto-implemented properties of the shape center.
+        // The X and Y auto-implemented properties of the point coordinates.
         //
         public int X { get; }
         public int Y { get; }
@@ -66,7 +66,7 @@ namespace Derived
     //
     // 1. Unlike C++, there are no access modifiers on derivation.
     // 2. C# does not allow multiple inheritance.
-    // 3. You can specify implementation of any number of interfaces here (more on this later).
+    // 3. You can specify implementation of any number of interfaces here (more on interfaces later).
     //
     public class Circle : Shape
     {

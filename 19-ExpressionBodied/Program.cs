@@ -59,10 +59,9 @@ namespace Abstract
 
         // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(Point center)
-        {
-            Center = center;
-        }
+        // Note that constructors can be expression bodied members as well.
+        //
+        public Shape(Point center) => Center = center;
 
         // Override "ToString" from the base "object" class.
         //
@@ -93,11 +92,10 @@ namespace Abstract
 
         // Circle constructor takes a circle center point as well as the circle radius.
         //
+        // Another single line constructor that can be made into an expresion bodied member.
+        //
         public Circle(Point center, int radius)
-            : base(center)
-        {
-            Radius = radius;
-        }
+            : base(center) => Radius = radius;
 
         // Override "ToString" from the base "object" class.
         //
@@ -158,7 +156,10 @@ namespace Abstract
         public int Width { get; set; }
         public int Height { get; set; }
 
-        // Circle constructor takes a center point as well as the rectangle width and height.
+        // Rectangle constructor takes a center point as well as the rectangle width and height.
+        //
+        // Note that since there is more than one line in the body, we can't make this an expression
+        // bodied member.
         //
         public Rectangle(Point center, int width, int height)
             : base(center)

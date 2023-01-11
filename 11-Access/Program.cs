@@ -13,7 +13,7 @@
 //
 // public    - Access is not restricted.
 // private   - Access is limited to the containing type.
-// protected - Access is limited to the containing types derived from the containing type.
+// protected - Access is limited to the containing type and types derived from the containing type.
 //
 // C# also provides the following:
 //
@@ -32,7 +32,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Parameters
+namespace Access
 {
     // Designate the main "Program" class as internal. Doing so makes this class inaccessible to any
     // other assemblies that might add this assembly as a reference.

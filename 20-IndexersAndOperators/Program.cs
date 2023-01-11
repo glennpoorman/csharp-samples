@@ -23,7 +23,7 @@ namespace IndexersAndOperators
             Y = y;
         }
 
-        // The X and Y auto-implemented properties of the shape center.
+        // The X and Y auto-implemented properties of the point coordinates.
         //
         public int X { get; }
         public int Y { get; }
@@ -107,10 +107,7 @@ namespace IndexersAndOperators
 
         // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(Point center)
-        {
-            Center = center;
-        }
+        public Shape(Point center) => Center = center;
 
         // Override "ToString" from the base "object" class.
         //
@@ -167,10 +164,7 @@ namespace IndexersAndOperators
         // Circle constructor takes a circle center point as well as the circle radius.
         //
         public Circle(Point center, int radius)
-            : base(center)
-        {
-            Radius = radius;
-        }
+            : base(center) => Radius = radius;
 
         // Override "ToString" from the base "object" class.
         //

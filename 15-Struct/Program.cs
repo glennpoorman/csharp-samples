@@ -29,7 +29,6 @@
 // 4. It will not have to be boxed frequently.
 //
 // For sample purposes, we're going to define a "Point" struct to represent the center of the shape.
-// It's a bit larger than 16 bytes but mostly fits the criteria.
 // ------------------------------------------------------------------------------------------------------
 
 using System;
@@ -54,9 +53,6 @@ namespace Struct
 
         // Public constructor takes the x and y coordinates as parameters and assigns them to the X and
         // Y properties.
-        //
-        // Note that even though there are no "set" accessors on the X and Y properties defined below,
-        // assignment is allowed in the constructor.
         //
         public Point(int x, int y)
         {

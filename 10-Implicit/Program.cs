@@ -20,8 +20,8 @@ namespace Implicit
             //        variables where the type is inferred by the expressions used to initialize it.
             //
             // NOTE2: Implicitly typed variables must be initialized. Once the variable is typed, that
-            //        type cannot change. In other words, any attempts to assign a string (for example)
-            //        to a variable that was already implicitly typed as an int will result in a compile
+            //        type cannot change. In other words, any attempts to assign a value to a variable
+            //        that was already implicitly typed as a different type will result in a compile
             //        error.
             //
             Console.WriteLine("\nCreating local variables of builtin types.");
@@ -36,7 +36,7 @@ namespace Implicit
             //
             //     DateTime date1 = new DateTime(...);
             //
-            // Clearly there is some unneeded redundancy there and even after replacing with the
+            // Clearly there is some unneeded redundancy there and after replacing the statement with an
             // implicitly typed variable, it's still crystal clear what it is we're creating.
             //
             var date1 = new DateTime(1962, 7, 6, 9, 0, 0);

@@ -37,7 +37,7 @@ namespace ToString
             Y = y;
         }
 
-        // The X and Y auto-implemented properties of the shape center.
+        // The X and Y auto-implemented properties of the point coordinates.
         //
         public int X { get; }
         public int Y { get; }

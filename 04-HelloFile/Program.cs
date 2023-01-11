@@ -23,7 +23,7 @@ namespace HelloFile
             // Call the static "File.WriteAllText" method. The first argument is the full path name of
             // the file and the second is the text to write to the file. Calling this method creates the
             // specified file, writes the entirety of the string to the file, and then closes the file.
-            // If the target fle already exists, it is overwritten.
+            // If the target file already exists, it is overwritten.
             //
             // Note that we include a "using" directive for "System.IO" up top so we don't need to fully
             // qualify the "File" class with the namespace it lives in.

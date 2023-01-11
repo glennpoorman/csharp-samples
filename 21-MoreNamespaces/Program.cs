@@ -17,11 +17,6 @@
 //
 // ------------------------------------------------------------------------------------------------------
 
-// Add additional using statements so that both the point struct and the classes in the "Shapes"
-// namespace can be referenced without having to fully qualify the name.
-//
-//using Poorman.MoreNamespaces.Math;
-//using Poorman.MoreNamespaces.Shapes;
 using System;
 
 // In this sample, we'll use a more complex naming scheme for our namespaces. Generally it's up to the

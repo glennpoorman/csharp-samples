@@ -25,13 +25,13 @@ namespace ForLoops
             //
             Console.WriteLine("Printing array using regular \"for\" loop:");
             for (int i = 0; i < names.Length; i++)
-                Console.WriteLine("    " + names[i]);
+                Console.WriteLine(names[i]);
 
             // C# has a "foreach" loop that makes array iteration cleaner.
             //
             Console.WriteLine("\nNow printing using a C# \"foreach\" loop:");
             foreach (string n in names)
-                Console.WriteLine("    " + n);
+                Console.WriteLine(n);
         }
     }
 }
