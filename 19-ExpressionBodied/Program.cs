@@ -15,7 +15,7 @@
 
 using System;
 
-namespace Abstract
+namespace ExpressionBodied
 {
     // The "Point" struct.
     //

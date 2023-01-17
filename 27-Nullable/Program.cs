@@ -8,26 +8,49 @@
 //
 // The full syntax for declaring a nullable object (using bool as an example) is
 //
-//     Nullable<bool> trueBool = true;
-//     Nullable<bool> nullBool = null;
+//     Nullable<bool> b1 = true;
+//     Nullable<bool> b2 = false;
+//     Nullable<bool> b3 = null;
 //
 // C# also introduced the shorthand "?" syntax (much more useful)
 //
-//     bool? trueBool = true;
-//     bool? nullBool = false;
+//     bool? b1 = true;
+//     bool? b2 = false;
+//     bool? b3 = null;
 //
 // Once you have your objects, checking to see if they contain good value or not is a matter of using one
 // of the following two syntax:
 //
-//     if (nullBool.HasValue) ...
-//     if (nullBool == null) ...
-//
+//     if (b1.HasValue) ...
+//     if (b1 == null) ...
 // ------------------------------------------------------------------------------------------------------
 
 using System;
 
 namespace Nullable
 {
+    // The "Point" struct.
+    //
+    public struct Point
+    {
+        // Public constructor takes input parameters for x and y and assigns them to the properties.
+        //
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        // The X and Y auto-implemented properties of the shape center.
+        //
+        public int X { get; }
+        public int Y { get; }
+
+        // Override "ToString" from the base "object" class.
+        //
+        public override string ToString() => $"{X}, {Y}";
+    }
+
     class Program
     {
         static void Main()
@@ -37,16 +60,17 @@ namespace Nullable
             // Note that this object can be used exactly like a regular int in all cases.
             //
             int? nullableInt = 12;
-            
+
             // Use the "HasValue" method to see if the object is null or not. If it has a value, print
             // the value to the console. Otherwise print that it is null.
             //
             if (nullableInt.HasValue)
-                Console.WriteLine("Value = {0}", nullableInt);
+                Console.WriteLine($"Value = {nullableInt}");
             else
                 Console.WriteLine("Value is null");
 
-            // Set the object to null. Using a regular int, this would generate a compiler error.
+            // Set the object to null. If this were a regular int, this statement would generate a
+            // compiler error.
             //
             nullableInt = null;
 
@@ -54,7 +78,7 @@ namespace Nullable
             // this time, simply check if the object is equal (or not equal in this case) to null.
             //
             if (nullableInt != null)
-                Console.WriteLine("Value = {0}", nullableInt);
+                Console.WriteLine($"Value = {nullableInt}");
             else
                 Console.WriteLine("Value is null");
 
@@ -63,7 +87,7 @@ namespace Nullable
             // this case, it is the system default (which for an int is 0).
             //
             int defaultValue = nullableInt.GetValueOrDefault();
-            Console.WriteLine("Default value is {0}", defaultValue);
+            Console.WriteLine($"Default value is {defaultValue}");
 
             // Again we call "GetValueOrDefault" but this time we call the one that allows us to specify
             // the default. So here an object with a valid value will return that value. Otherwise 36 is
@@ -72,12 +96,23 @@ namespace Nullable
             //     defaultValue = (nullableInt != null) ? nullableInt : 36;
             //
             defaultValue = nullableInt.GetValueOrDefault(36);
-            Console.WriteLine("Custom default value is {0}", defaultValue);
+            Console.WriteLine($"Custom default value is {defaultValue}");
 
-            // Wait for <enter> to finish.
+            // Note that these are not limited to builtin types. They work for any value type and since
+            // a struct is a value type, we can use it with one of our "Point" objects.
             //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
+            Point? p1 = new(11, 12);
+            if (p1 != null)
+                Console.WriteLine($"Point value is {p1}");
+            else
+                Console.WriteLine("Value is null");
+
+            // Set the nullable point variable to null and then print out the result of a call to
+            // "GetValueOrDefault". Note that this call will return a point value initialized bitwise
+            // to zero.
+            //
+            p1 = null;
+            Console.WriteLine($"Default point value is {p1.GetValueOrDefault()}");
         }
     }
 }

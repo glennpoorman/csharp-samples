@@ -50,6 +50,15 @@ namespace Struct
         //
         // This is also helpful, again, with the notion of immutability. If you cannot change properties
         // on a struct object once it has been created, then a default constructor makes no sense.
+        //
+        // Please note, however, that while you cannot explicitly define a parameterless constructor on
+        // a struct, one is always available and will always initialize the value bitwise to zero. In
+        // other words, consider the following line:
+        //
+        //     Point p = new Point();
+        //
+        // That line is not only legal, but it will create a point with the X and Y coordinates
+        // intialized to zero.
 
         // Public constructor takes the x and y coordinates as parameters and assigns them to the X and
         // Y properties.

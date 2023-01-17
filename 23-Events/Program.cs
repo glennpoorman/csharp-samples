@@ -15,146 +15,168 @@ namespace Events
     // Declare a delegate type that will be used for our events. Events are essentially special forms of
     // delegates as we'll see when we declare the event inside of the class definition.
     //
-    // NOTE: Microsoft defines several delegate types and many of them are generic so there is a good
-    //       chance that you could write entire projects without ever having to define your own delegate
-    //       types. For the purposes of these samples, we'll define our own to demonstrate how it works.
-    //       For future reference though, see the "Action<T>", "Func<T>" and "Predicate" delegate types
-    //       and think about how this sample could be re-written to use one of those.
+    // Note that Microsoft defines several delegate types and many of them are generic so there is a good
+    // chance that you could write entire projects without ever having to define your own delegate types.
+    // For the purposes of these samples, we'll define our own to demonstrate how it works. For future
+    // reference though, see the "Action<T>", "Func<T>" and "Predicate" delegate types and think about
+    // how this sample could be re-written to use one of those.
     //
     public delegate void ChangeHandler(Shape s);
 
-    // Define the base "Shape" class.
+    // The "Point" struct.
+    //
+    public struct Point
+    {
+        // Public constructor takes input parameters for x and y and assigns them to the properties.
+        //
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        // The X and Y auto-implemented properties of the shape center.
+        //
+        public int X { get; }
+        public int Y { get; }
+
+        // Override "ToString" from the base "object" class.
+        //
+        public override string ToString() => $"{X}, {Y}";
+    }
+
+    // Define the "Shape" class.
     //
     public class Shape
     {
-        // The x and y coordinates of the shape center.
-        //
-        // Note that we're back to using fields instead of auto-implemented properties. That is because
-        // our property implementations are now taking on the added tasks of firing events where
-        // necessary.
-        //
-        private int x;
-        private int y;
-
         // Declare an event called "PropertyChanged" that we will fire whenever a property on the shape
         // changes. Events are declared using the "event" keyword followed by a delegate type and the
-        // event name. Here we will use the delegate type we declared up above.
+        // event name. Here we will use the delegate type we declared up above. Please note the
+        // following:
         //
-        // NOTE1: From the calling code, an event handler is added using the += operator and is removed
-        //        using the -= operator.
+        // 1. From the calling code, an event handler is added using the += operator and is removed using
+        //    the -= operator.
         //
-        //            Shape s = new Shape(1,2);
-        //            s.PropertyChanged += MyDelegate; // Add handler.
-        //            s.PropertyChanged -= MyDelegate; // Remove handler.
+        //        Shape s = new(1,2);
+        //        s.PropertyChanged += MyDelegate; // Add handler.
+        //        s.PropertyChanged -= MyDelegate; // Remove handler.
         //
-        //        Note that only those operators can be used on an event and that unlike a delegate, you
-        //        cannot assign to an event.
+        //    Note that those are the only operators that can be used on an event and that unlike a
+        //    delegate, you cannot assign to an event.
         //
-        // NOTE2: So far this all looks very similar to working with delegates like we did in the
-        //        previous sample and on the surface, it probably seems like the "event" keyword doesn't
-        //        really add anything. As a matter of fact, in this particular sample you could remove
-        //        the "event" keyword which would simply turn this item into a public delegate field and
-        //        the program would still compile. What we are showing in this sample, however, is the
-        //        simplest form of declaring an event.
+        // 2. So far this all looks very similar to working with delegates like we did in the previous
+        //    sample and on the surface, it probably seems like the "event" keyword doesn't really add
+        //    anything. As a matter of fact, in this particular sample you could remove the "event"
+        //    keyword which would simply turn this item into a public delegate field and the program
+        //    would still compile. What we are showing in this sample, however, is the simplest form of
+        //    declaring an event.
         //
-        //        Events provide greater control if you want it though. Suppose that, for whatever
-        //        reason, you did not want to rely on simple delegate fields to store your event
-        //        handlers. Suppose that you want to simply pass the setting or removing of event
-        //        handlers to another object you're holding a reference to. Or suppose that you want to
-        //        use a collection to hold your events. You can gain finer control over the setting and
-        //        removing of your event handlers by using "add" and "remove" accessors. These are very
-        //        similar to the "set" and "get" accessors on properties. As a matter of fact, you can
-        //        think of the relationship from events to delegates as similar to the relationship from
-        //        properties to fields.
+        //    Events provide greater control if you want it though. Suppose that, for whatever reason,
+        //    you did not want to rely on simple delegate fields to store your event handlers. Suppose
+        //    that you want to simply pass the setting or removing of event handlers to another object
+        //    you're holding a reference to. Or suppose that you want to use a collection to hold your
+        //    events. You can gain finer control over the setting and removing of your event handlers by
+        //    using "add" and "remove" accessors. These are very similar to the "set" and "get" accessors
+        //    on properties. As a matter of fact, you can think of the relationship from events to
+        //    delegates as similar to the relationship from properties to fields.
         //
-        //        To provide your own event handling functionality, you would use the "add" and "remove"
-        //        event accessors as follows:
+        //    To provide your own event handling functionality, you would use the "add" and "remove"
+        //    event accessors as follows:
         //
-        //           public event ChangeHandler PropertyChanged
-        //           {
-        //               add
-        //               {
-        //                   ... custom code to add event handler ...
-        //               }
-        //               remove
-        //               {
-        //                   ... custom code to remove event handler ...
-        //               }
-        //           }
+        //        public event ChangeHandler PropertyChanged
+        //        {
+        //            add
+        //            {
+        //                ... custom code to add event handler ...
+        //            }
+        //            remove
+        //            {
+        //                ... custom code to remove event handler ...
+        //            }
+        //        }
         //
-        //        From the caller's perspective, there is no difference. The adding and removing of event
-        //        handlers is still done using the += operator (which calls "add") and the -= operator
-        //        (which calls "remove").
+        //    From the caller's perspective, there is no difference. The adding and removing of event
+        //    handlers is still done using the += operator (which calls "add") and the -= operator (which
+        //    calls "remove").
         //
         public event ChangeHandler PropertyChanged;
- 
-        // First public constructor takes no arguments and initializes the fields x and y to zero.
+
+        // First public constructor takes no arguments and initializes the x and y properties to zero.
         //
         public Shape()
-        {}
+        { }
 
-        // Second public constructor takes input parameters for x and y and assigns them to the data
-        // fields.
+        // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
+        public Shape(Point center) => Center = center;
 
-        // X coordinate property. Here code is added to the "set" accessor to call "OnPropertyChanged"
+        // The shape center field.
+        //
+        // Note that we are using a private field and no longer an auto-implemented property. That is
+        // because our property implementation will now take on the added task of firing an event where
+        // necessary.
+        //
+        private Point center;
+
+        // Center point property. Here code is added to the "set" accessor to call "OnPropertyChanged"
         // (defined below) which fires an event.
         //
-        public int X
+        public Point Center
         {
-            get { return x; }
-            set { x = value;
-                  OnPropertyChanged(); }
+            get => center;
+            set
+            {
+                center = value;
+                OnPropertyChanged();
+            }
         }
 
-        // Y coordinate property.
+        // This method fires the event. Please note the following:
         //
-        public int Y
-        {
-            get { return y; }
-            set { y = value;
-                  OnPropertyChanged(); }
-        }
-
-        // This method fires the event.
+        // 1. This code could have been put directly into the property "set" accessors above. Aside from
+        //    the obvious desire to avoid repeating code, there is another reason to put this code in its
+        //    own method. Event members cannot be accessed directly from derived classes except to add or
+        //    remove event handlers. So in order to be able to call the delegate from a derived class, it
+        //    is common practice to implement a protected member that can be called from the derived
+        //    classes but won't be visible to the outside world.
         //
-        // NOTE1: This code could have been put directly into the property "set" accessors above. Aside
-        //        from the obvious desire to avoid repeating code, there is another reason to put this
-        //        code in its own method. Event members cannot be accessed directly from derived classes
-        //        except to add or remove event handlers. So in order to be able to call the delegate
-        //        from a derived class, it is common practice to implement a protected member that can be
-        //        called from the derived classes but won't be visible to the outside world.
-        //
-        // NOTE2: If no handlers are set for this event, the delegate object will be null. This is an
-        //        acceptable and common scenario so we always to check for this before firing the event.
-        //
-        // NOTE3: Remember that delegates can be added together so it is possible that multiple event
-        //        handlers have been set for this event. If that is the case, the single call below will
-        //        result in a call to each of the event handlers that have been set.
+        // 2. Remember that delegates can be added together so it is possible that multiple event
+        //    handlers have been set for this event. If that is the case, the single call below will
+        //    result in a call to each of the event handlers that have been set.
         //
         protected void OnPropertyChanged()
         {
+            // As we showed in the last sample, calling a delegate is just like calling a function. What
+            // the compiler is really doing behind the scenes though is calling the "Invoke" method that
+            // is part of the delegate.
+            //
+            //     PropertyChanged.Invoke(this);
+            //
+            // If the delegate hasn't been sent, the default value will be null and attempting to call it
+            // will result in a null reference exception. It is common then to check the delegate before
+            // making the call to make sure it is not null.
+            //
+            // In order to streamline your code a little, C# 3 introduced the null conditional operator
+            // that can be used here. By replacing the two lines of code with the following:
+            //
+            //     PropertyChanged?.Invoke(this);
+            //
+            // We are saying, call the "Invoke" method on this delegate but only if it is not null.
+            //
             if (PropertyChanged != null)
                 PropertyChanged(this);
         }
 
         // Override "ToString" from the base "object" class.
         //
-        public override string ToString()
-        {
-            return "(" + x.ToString() + ", " + y.ToString() + ")";
-        }
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
-        // Virtual "Draw" method.
+        // Virtual "Draw" method. We've simplified this method back to its previous version that took
+        // no arguments.
         //
         public virtual void Draw()
         {
-            Console.WriteLine("Center = {0}", this);
+            Console.WriteLine(this);
         }
     }
 
@@ -162,86 +184,84 @@ namespace Events
     //
     public class Circle : Shape
     {
+        // Circle constructor takes a circle center point as well as the circle radius.
+        //
+        public Circle(Point center, int radius)
+            : base(center) => Radius = radius;
+
         // Circle radius field. Just as with the shape, we're going back to using a private field as the
         // property implementation must now fire an event where appropriate.
         //
         private int radius;
-
-        // Circle constructor takes x,y coordinates of the circle center as well as the circle radius.
-        //
-        public Circle(int x, int y, int radius) : base(x, y)
-        {
-            this.radius = radius;
-        }
 
         // Public radius property. Again the "set" accessor has been modified to call "OnPropertyChanged"
         // from the base class firing off an event.
         //
         public int Radius
         {
-            get { return radius; }
-            set { radius = value;
-                  OnPropertyChanged(); }
+            get => radius;
+            set
+            {
+                radius = value;
+                OnPropertyChanged();
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Radius = ({0})", radius);
-        }
+        public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
     }
 
     // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
     //
     public class Rectangle : Shape
     {
+        // Rectangle constructor takes a center point as well as the rectangle width and height.
+        //
+        public Rectangle(Point center, int width, int height)
+            : base(center)
+        {
+            Width = width;
+            Height = height;
+        }
+
         // Rectangle width/height fields (again going back to fields).
         //
         private int width;
         private int height;
 
-        // Rectangle constructor takes x,y coordinates of the center as well as the rectangle width and
-        // height.
-        //
-        public Rectangle(int x, int y, int width, int height) : base(x, y)
-        {
-            this.width  = width;
-            this.height = height;
-        }
-
-        // Public width property. Again the "set" accessor has been modified. to call "OnPropertyChanged"
+        // Public width property. Again the "set" accessor has been modified to call "OnPropertyChanged"
         // from the base class firing off an event.
         //
         public int Width
         {
-            get { return width; }
-            set { width = value;
-                  OnPropertyChanged(); }
+            get => width;
+            set
+            {
+                width = value;
+                OnPropertyChanged();
+            }
         }
 
-        // Public height property. Again the "set" accessor has been modified. to call "OnPropertyChanged"
+        // Public height property. Again the "set" accessor has been modified to call "OnPropertyChanged"
         // from the base class firing off an event.
         //
         public int Height
         {
-            get { return height; }
-            set { height = value;
-                  OnPropertyChanged(); }
+            get => height;
+            set
+            {
+                height = value;
+                OnPropertyChanged();
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Width = ({0})", width);
-            Console.WriteLine("Height = ({0})", height);
-        }
+        public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
     }
 
-    public class Program
+    class Program
     {
         // Define a static event handler method that writes a message to the console that a shape has
         // changed.
@@ -261,13 +281,13 @@ namespace Events
             s.Draw();
         }
 
-        public static void Main()
+        static void Main()
         {
             // Create a circle. Add the event handler so that a message is printed to the console
             // whenever a property on the circle changes.
             //
             Console.WriteLine("\nCreate a circle, add an event handler, change the radius.");
-            Circle c = new Circle(20, 21, 10);
+            Circle c = new(new Point(20, 21), 10);
             c.PropertyChanged += NotifyShapeChanged;
             c.Radius = 15;
 
@@ -282,7 +302,7 @@ namespace Events
             // Both handlers will be called.
             //
             Console.WriteLine("\nCreate a rectangle, add both event handlers, change the width.");
-            Rectangle r = new Rectangle(11, 12, 150, 100);
+            Rectangle r = new(new Point(11, 12), 150, 100);
             r.PropertyChanged += NotifyShapeChanged;
             r.PropertyChanged += DrawShapeOnChange;
             r.Width = 175;
@@ -302,11 +322,6 @@ namespace Events
             Console.WriteLine("Note the absence of any output from the property change.");
             r.PropertyChanged -= NotifyShapeChanged;
             r.Width = 25;
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

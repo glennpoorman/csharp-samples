@@ -1,77 +1,91 @@
 // ------------------------------------------------------------------------------------------------------
 // Generics
 //
-// C# 2.0 introduced generics which provides a way to design classes that defer the specification of one
-// or more types until the class is instanced. This is very similar to the templates mechanism in C++.
+// C# 2.0 introduced generics which provides a way to design classes or structs that defer the
+// specification of one or more types until the class is instanced. This is very similar to the
+// templates mechanism in C++.
 // ------------------------------------------------------------------------------------------------------
 
 using System;
 
 namespace Generics
 {
-    // Define the base "Shape" class. Here we define the class such that the data type of the X and Y
-    // properties is specified as part of the class declaration. In the definition itself, we use the "T"
-    // as a parameter where the actual type will be used when the class is instanced. Just like with C++
-    // templates, you can use any identifier you want here.
+    // Define the "Point" struct. Here we define the struct such that the data type of the X and Y
+    // properties is specified as part of the class declaration. In the definition itself, we use "T" as
+    // a type parameter where the actual type will be specified when the class is instanced. Just like
+    // with C++ templates, you can use any identifier you want here.
+    //
+    public struct Point<T>
+    {
+        // Public constructor takes input parameters for x and y and assigns them to the properties. Note
+        // that the type of the constructor parameters is the type parameter "T".
+        //
+        public Point(T x, T y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        // The x and y auto-implemented properties of the point coordinates. Note that the type of these
+        // properties is the parameter "T".
+        //
+        public T X { get; }
+        public T Y { get; }
+
+        // Override "ToString" from the base "object" class.
+        //
+        public override string ToString() => $"{X}, {Y}";
+    }
+
+    // Define the "Shape" class. Here again we define the data type using the type parameter "T". For
+    // this class, we simply pass that parameter down to the "Point" struct.
+    //
     //
     public class Shape<T>
     {
-        // The x and y auto-implemented properties of the shape center. Note that the type of these
-        // properties is the parameter "T".
+        // The shape center property.
         //
-        public T X { get; set; }
-        public T Y { get; set; }
+        public Point<T> Center { get; set; }
 
-        // First public constructor takes no arguments and initializes the x and y properties to the
-        // appropriate default.
+        // First public constructor takes no arguments and initializes the x and y properties to zero.
         //
         public Shape()
-        {}
+        { }
 
-        // Second public constructor takes input parameters for x and y and assigns them to the
-        // properties. Note again that the type of the constructor parameters is the parameter "T".
+        // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(T x, T y)
-        {
-            this.X = x;
-            this.Y = y;
-        }
+        public Shape(Point<T> center) => Center = center;
 
-        // Override "ToString" from the base "object" class. Note the use of "ToString" directly on the
-        // underlying properties. This was very uninteresting until now. Again, you can specify any type
-        // when instancing a generic class. Use of specific methods assumes that those methods exist on
-        // whatever type you use. In this case we know we're safe because all types in C# have an
-        // implementation of "ToString". The question you have to answer is whether or not that
-        // implementation is reasonable on the type you happen to use.
+        // Override "ToString" from the base "object" class.
         //
-        public override string ToString()
-        {
-            return "(" + X.ToString() + ", " + Y.ToString() + ")";
-        }
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
         // Virtual "Draw" method.
         //
-        public virtual void Draw()
-        {
-            Console.WriteLine("Center = {0}", this);
-        }
+        public virtual void Draw() => Console.WriteLine(this);
     }
 
-    // Define a class "Circle" that derives from "Shape" and adds a radius. Like the shape, we'll define
-    // the class such that the data type of the radius is specified as part of the class definition.
+    // Define a class "Circle" that derives from "Shape" and adds a radius. Again we define the data type
+    // using the type parameter "T".
     //
-    // Note that we pass the parameter "T" onto the shape class. If we wanted, we could have fixed the
-    // type of "Circle" and passed that onto the base class as in:
+    // Note that we pass the type parameter onto the shape class right in the declaration. Depending on
+    // the desired outcome, there are some options here.
     //
-    //     public class Circle : Shape<int>
+    // 1. If we wanted to hard code the shape/point to be an "int" and fixed the circle radius type, we
+    //    could make the circle class non-generic and hard code the type passed onto the shape.
     //
-    // Or we could have gotten really interesting and create a circle class where the radius could have a
-    // different type from the shape center as in:
+    //        public class Circle : Shape<int>
     //
-    //     public class Circle<R,T> : Shape<T>
-    //     {
-    //         public R Radius { get; set; }
-    //            :
+    // 2. Suppose we wanted to provide the option of having different types for the shape/point and the
+    //    radius. We could provide two type parameters for the circle.
+    //
+    //        public class Circle<R,T> : Shape<T>
+    //        {
+    //            public R Radius {get; set; }
+    //               :
+    //
+    // For our purposes, we'll stick with one type parameter and use it for both the shape/point and for
+    // the circle radius.
     //
     public class Circle<T> : Shape<T>
     {
@@ -79,26 +93,22 @@ namespace Generics
         //
         public T Radius { get; set; }
 
-        // Circle constructor takes x,y coordinates of the circle center as well as the circle radius.
-        // Note that the type of all of these parameters is the parameter "T".
+        // Circle constructor takes a circle center point as well as the circle radius. Note that the
+        // type of all of these parameters is the parameter "T".
         //
-        public Circle(T x, T y, T radius) : base(x, y)
-        {
-            this.Radius = radius;
-        }
+        public Circle(Point<T> center, T radius)
+            : base(center) => Radius = radius;
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Radius = ({0})", Radius);
-        }
+        public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
     }
 
     // Define a class "Rectangle" that derives from "Shape" and adds a width and height. Again we define
     // the class such that the data type is specified as part of the class definition and pass it onto
     // the base class.
+    //
+    // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
     //
     public class Rectangle<T> : Shape<T>
     {
@@ -107,54 +117,61 @@ namespace Generics
         public T Width { get; set; }
         public T Height { get; set; }
 
-        // Rectangle constructor takes x,y coordinates of the center as well as the rectangle width and
-        // height. Note that the type of all of these parameters is the parameter "T".
+        // Rectangle constructor takes a center point as well as the rectangle width and height. Note
+        // that the type of all of these parameters is the parameter "T".
         //
-        public Rectangle(T x, T y, T width, T height) : base(x, y)
+        public Rectangle(Point<T> center, T width, T height)
+            : base(center)
         {
-            this.Width  = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Width = ({0})", Width);
-            Console.WriteLine("Height = ({0})", Height);
-        }
+        public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
     }
 
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
-            // Create an instance of shape and specify that the data type of the center point will be an
-            // int. Once the class is instanced, that data type is fixed and cannot be changed.
+            // Create an instance of a circle and specify that the data type of the center point and the
+            // radius will be an int. Once the class is instanced, that data type is fixed and cannot be
+            // changed.
             //
-            Console.WriteLine("\nCreate shape with \"int\" data.");
-            Shape<int> s1 = new Shape<int>(11, 12);
-            s1.Draw();
+            // Note that just like a non-generic type, the creation could have been written using any of
+            // the following forms.
+            //
+            //    Circle<int> c1 = new Circle<int>(new Point<int>(11, 12), 20);
+            //    var c1 = new Circle<int>(new Point<int>(11, 12), 20);
+            //    Circle<int> c1 = new(new Point<int>(11, 12), 20);
+            //
+            // We could even have been dropping the name "Point".
+            //
+            //    Circle<int> c1 = new(new(11, 12), 20);
+            //
+            // Yes, the type can be inferred by the constructor function signature. I've been avoiding
+            // doing that because ... well ... I just don't like it. I prefer using these shortcuts in
+            // places where the resulting type is obvious.
+            //
+            Console.WriteLine("\nCreate a circle with \"int\" data.");
+            Circle<int> c1 = new(new Point<int>(11, 12), 20);
+            c1.Draw();
 
-            // Create an instance of circle and specify that the data type of the center point and radius
-            // is string.
+            // Create another instance of a circle and specify that the data type of the center point
+            // and radius is a string.
             //
             Console.WriteLine("\nCreate circle with \"string\" data.");
-            Shape<string> s2 = new Circle<string>("Zero", "Zero", "One Hundred");
-            s2.Draw();
+            Circle<string> c2 = new(new Point<string>("Zero", "Zero"), "One Hundred");
+            c2.Draw();
 
-            // Create an instance of rectangle and note that the data type of the center point, width,
-            // and height is double.
+            // Create an instance of a rectangle and specify that the data type of the center point,
+            // width, and height is a double.
             //
             Console.WriteLine("\nCreate rectangle with \"double\" data.");
-            Shape<double> s3 = new Rectangle<double>(1.5, 3.375, 150.5, 90.75);
-            s3.Draw();
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
+            Rectangle<double> r1 = new(new Point<double>(1.5, 3.375), 150.5, 90.75);
+            r1.Draw();
         }
     }
 }

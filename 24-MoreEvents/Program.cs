@@ -38,54 +38,64 @@ namespace MoreEvents
         //
         public PropertyEventArgs(string name)
         {
-            this.Name = name;
+            Name = name;
         }
     }
 
-    // Define the base "Shape" class.
+    // The "Point" struct.
+    //
+    public struct Point
+    {
+        // Public constructor takes input parameters for x and y and assigns them to the properties.
+        //
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        // The X and Y auto-implemented properties of the shape center.
+        //
+        public int X { get; }
+        public int Y { get; }
+
+        // Override "ToString" from the base "object" class.
+        //
+        public override string ToString() => $"{X}, {Y}";
+    }
+
+    // Define the "Shape" class.
     //
     public class Shape
     {
-        // The x and y coordinates of the shape center (fields).
-        //
-        private int x;
-        private int y;
-
-        // Declare the event using the "Sytem.EventHandler" delegate type.
+        // Declare the event using the "System.EventHandler" delegate type.
         //
         public event EventHandler PropertyChanged;
 
-        // First public constructor takes no arguments and initializes the fields x and y to zero.
+        // First public constructor takes no arguments and initializes the x and y properties to zero.
         //
         public Shape()
-        {}
+        { }
 
-        // Second public constructor takes input parameters for x and y and assigns them to the data
-        // fields.
+        // Second public constructor takes a "Point" object to represent the shape center.
         //
-        public Shape(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
+        public Shape(Point center) => Center = center;
 
-        // X coordinate property. Note that the call to "OnPropertyChanged" has been modified to take a
+        // The shape center field.
+        //
+        private Point center;
+
+        // Center point property. Note that the call to "OnPropertyChange" has been modified to take a
         // string containing the name of the property.
         //
-        public int X
+        public Point Center
         {
-            get { return x; }
-            set { x = value;
-                  OnPropertyChanged("X"); }
-        }
-
-        // Y coordinate property.
-        //
-        public int Y
-        {
-            get { return y; }
-            set { y = value;
-                  OnPropertyChanged("Y"); }
+            get => center;
+            set
+            {
+                center = value;
+                OnPropertyChanged("Center");
+            }
         }
 
         // This method fires the event. In addition to the call, we also create and pass along a
@@ -93,22 +103,19 @@ namespace MoreEvents
         //
         protected void OnPropertyChanged(string name)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyEventArgs(name));
         }
 
         // Override "ToString" from the base "object" class.
         //
-        public override string ToString()
-        {
-            return "(" + x.ToString() + ", " + y.ToString() + ")";
-        }
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
-        // Virtual "Draw" method.
+        // Virtual "Draw" method. We've simplified this method back to its previous version that took
+        // no arguments.
         //
         public virtual void Draw()
         {
-            Console.WriteLine("Center = {0}", this);
+            Console.WriteLine(this);
         }
     }
 
@@ -116,85 +123,82 @@ namespace MoreEvents
     //
     public class Circle : Shape
     {
-        // Circle radius field.
+        // Circle constructor takes a circle center point as well as the circle radius.
+        //
+        public Circle(Point center, int radius)
+            : base(center) => Radius = radius;
+
+        // Circle radius field. Just as with the shape, we're going back to using a private field as the
+        // property implementation must now fire an event where appropriate.
         //
         private int radius;
 
-        // Circle constructor takes x,y coordinates of the circle center as well as the circle radius.
-        //
-        public Circle(int x, int y, int radius) : base(x, y)
-        {
-            this.radius = radius;
-        }
-
-        // Public radius property. Again the "set" accessor has been modified to call "OnPropertyChanged"
-        // from the base class firing off an event.
+        // Public radius property. Again the property name is now passed to "OnPropertyChanged".
         //
         public int Radius
         {
-            get { return radius; }
-            set { radius = value;
-                  OnPropertyChanged("Radius"); }
+            get => radius;
+            set
+            {
+                radius = value;
+                OnPropertyChanged("Radius");
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Radius = ({0})", radius);
-        }
+        public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
     }
 
     // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
     //
     public class Rectangle : Shape
     {
-        // Rectangle width/height fields.
+        // Rectangle constructor takes a center point as well as the rectangle width and height.
+        //
+        public Rectangle(Point center, int width, int height)
+            : base(center)
+        {
+            Width = width;
+            Height = height;
+        }
+
+        // Rectangle width/height fields (again going back to fields).
         //
         private int width;
         private int height;
 
-        // Rectangle constructor takes x,y coordinates of the center as well as the rectangle width and
-        // height.
-        //
-        public Rectangle(int x, int y, int width, int height) : base(x, y)
-        {
-            this.width  = width;
-            this.height = height;
-        }
-
-        // Public width property. Again the "set" accessor has been modified. to call "OnPropertyChanged"
-        // from the base class firing off an event.
+        // Public width property.
         //
         public int Width
         {
-            get { return width; }
-            set { width = value;
-                  OnPropertyChanged("Width"); }
+            get => width;
+            set
+            {
+                width = value;
+                OnPropertyChanged("Width");
+            }
         }
 
-        // Public height property. Again the "set" accessor has been modified. to call "OnPropertyChanged"
+        // Public height property. Again the "set" accessor has been modified to call "OnPropertyChanged"
         // from the base class firing off an event.
         //
         public int Height
         {
-            get { return height; }
-            set { height = value;
-                  OnPropertyChanged("Height"); }
+            get => height;
+            set
+            {
+                height = value;
+                OnPropertyChanged("Height");
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Width = ({0})", width);
-            Console.WriteLine("Height = ({0})", height);
-        }
+        public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
     }
 
-    public class Program
+    class Program
     {
         // Define a static event handler method that writes a message to the console that a shape has
         // changed and write the name of the property that has changed.
@@ -203,13 +207,15 @@ namespace MoreEvents
         {
             PropertyEventArgs p = (PropertyEventArgs)args;
 
-            Type type = sender.GetType();                
+            Type type = sender.GetType();
 
             Console.WriteLine("The {0} property on an object of type {1} has changed.", p.Name, type);
         }
 
         // Define another static event handler method that simply calls the draw method on the shape that
         // has changed.
+        //
+        // Note that the shape itself is now coming in the the "sender" parameter and has to be cast.
         //
         private static void DrawShapeOnChange(object sender, EventArgs args)
         {
@@ -218,13 +224,13 @@ namespace MoreEvents
             s.Draw();
         }
 
-        public static void Main()
+        static void Main()
         {
             // Create a circle. Add the event handler so that a message is printed to the console
             // whenever a property on the circle changes.
             //
             Console.WriteLine("\nCreate a circle, add an event handler, change the radius.");
-            Circle c = new Circle(20, 21, 10);
+            Circle c = new (new Point(20, 21), 10);
             c.PropertyChanged += NotifyShapeChanged;
             c.Radius = 15;
 
@@ -239,7 +245,7 @@ namespace MoreEvents
             // Both handlers will be called.
             //
             Console.WriteLine("\nCreate a rectangle, add both event handlers, change the width.");
-            Rectangle r = new Rectangle(11, 12, 150, 100);
+            Rectangle r = new(new Point(11, 12), 150, 100);
             r.PropertyChanged += NotifyShapeChanged;
             r.PropertyChanged += DrawShapeOnChange;
             r.Width = 175;
@@ -250,11 +256,6 @@ namespace MoreEvents
             Console.WriteLine("\nRemove one event handler from the rectangle, change the height.");
             r.PropertyChanged -= DrawShapeOnChange;
             r.Height = 110;
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

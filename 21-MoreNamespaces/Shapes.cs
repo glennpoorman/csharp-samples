@@ -49,7 +49,7 @@ namespace Poorman.MoreNamespaces.Shapes
 {
     // Define the "Shape" class.
     //
-    public abstract class Shape
+    public class Shape
     {
         // The shape center property.
         //
@@ -66,16 +66,11 @@ namespace Poorman.MoreNamespaces.Shapes
 
         // Override "ToString" from the base "object" class.
         //
-        public override string ToString() => $"{GetType().Name}-{Version}, Center = ({Center})";
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
         // Virtual "Draw" method.
         //
         public virtual void Draw() => Console.WriteLine(this);
-
-        // Define an abstract read-only property to return a string representing the current version of
-        // a given type of shape.
-        //
-        public abstract string Version { get; }
     }
 
     // Define a class "Circle" that derives from "Shape" and adds a radius.
@@ -94,10 +89,6 @@ namespace Poorman.MoreNamespaces.Shapes
         // Override "ToString" from the base "object" class.
         //
         public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
-
-        // Define/override the "Version" property.
-        //
-        public override string Version => "1.0.1";
     }
 
     // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
@@ -121,9 +112,5 @@ namespace Poorman.MoreNamespaces.Shapes
         // Override "ToString" from the base "object" class.
         //
         public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
-
-        // Define/override the "Version" property.
-        //
-        public override string Version => "1.0.0";
     }
 }

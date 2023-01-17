@@ -94,7 +94,7 @@ namespace IndexersAndOperators
 
     // Define the "Shape" class.
     //
-    public abstract class Shape
+    public class Shape
     {
         // The shape center property.
         //
@@ -111,16 +111,11 @@ namespace IndexersAndOperators
 
         // Override "ToString" from the base "object" class.
         //
-        public override string ToString() => $"{GetType().Name}-{Version}, Center = ({Center})";
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
         // Virtual "Draw" method.
         //
         public virtual void Draw() => Console.WriteLine(this);
-
-        // Define an abstract read-only property to return a string representing the current version of
-        // a given type of shape.
-        //
-        public abstract string Version { get; }
 
         // Define an indexer on the shape allowing the center point coordinates to be indexed like an
         // array. We've already defined an indexer on the point struct so this might appear redundant.
@@ -172,10 +167,6 @@ namespace IndexersAndOperators
         // turn this into an expression bodied member.
         //
         public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
-
-        // Define/override the "Version" property.
-        //
-        public override string Version => "1.0.1";
 
         // Define an addition operator that adds the center points and the radii of the given circles
         // returning the result in a new circle. Please note the following:
