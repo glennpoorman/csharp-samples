@@ -43,11 +43,11 @@
 // ------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace Initializers
 {
-    // The "Point" struct (back to the old non-generic version).
+    // The "Point" struct.
     //
     public struct Point
     {
@@ -143,14 +143,14 @@ namespace Initializers
             Console.WriteLine("\nCreate a circle using object initializers.");
             c1.Draw();
 
-            // Create a generic list of shapes. Here we use collection initializers which allow us to
-            // initialize the contents of a collection much the same way you would intialize the contents
-            // if an array. Please note the following:
+            // Create an array list. Here we use collection initializers which allow us to initialize
+            // the the contents of a collection much the same way you would intialize the contents of
+            // an array.
             //
             // Note that you can mix and match existing objects and calls to create new objects.
             //
             Console.WriteLine("\nCreate a collection of shapes.");
-            List<Shape> shapes = new()
+            ArrayList shapes = new()
             {
                 s1,
                 s2,
@@ -163,6 +163,36 @@ namespace Initializers
             //
             foreach (Shape s in shapes)
                 Console.WriteLine(s);
+
+            // Create a dictionary style collection of shapes. The initializers allowed for dictionary
+            // style collections are particularly attractive. Since each item is a key/value pair, you
+            // have two choices for initialization. The first is to initialize each entry using an
+            // additional pair of curly braces containing each key/value pair as in:
+            //
+            //     Hashtable table = new()
+            //     {
+            //         { "key1", "the first value" },
+            //         { "key2", "the second value" },
+            //             :
+            //         { "keyn", "the nth value" }
+            //     };
+            //
+            //
+            // The second way to initialize a dictionary is to use the indexer for key and assinging the
+            // shape to the result as we do in the code below.
+            //
+            Console.WriteLine("\nCreate a dictionary of shapes.");
+            Hashtable shapesTable = new()
+            {
+                ["shape-01"] = new Shape() { Center = new Point() { X = 17, Y = 18 } },
+                ["shape-02"] = new Circle() { Center = new Point() { X = 101, Y = 202 }, Radius = 12 },
+                ["shape-03"] = new Circle() { Radius = 20 }
+            };
+
+            // Draw the collection of keys and shapes to the console.
+            //
+            foreach (DictionaryEntry entry in shapesTable)
+                Console.WriteLine($"{entry.Key} - {entry.Value}");
         }
     }
 }
