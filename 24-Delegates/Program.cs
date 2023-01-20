@@ -25,18 +25,10 @@ namespace Delegates
     //
     public struct Point
     {
-        // Public constructor takes input parameters for x and y and assigns them to the properties.
+        // The X and Y auto-implemented properties of the point coordinates.
         //
-        public Point(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        // The X and Y auto-implemented properties of the shape center.
-        //
-        public int X { get; }
-        public int Y { get; }
+        public int X { get; init; }
+        public int Y { get; init; }
 
         // Override "ToString" from the base "object" class.
         //
@@ -50,15 +42,6 @@ namespace Delegates
         // The shape center property.
         //
         public Point Center { get; set; }
-
-        // First public constructor takes no arguments and initializes the x and y properties to zero.
-        //
-        public Shape()
-        { }
-
-        // Second public constructor takes a "Point" object to represent the shape center.
-        //
-        public Shape(Point center) => Center = center;
 
         // Override "ToString" from the base "object" class.
         //
@@ -88,11 +71,6 @@ namespace Delegates
         //
         public int Radius { get; set; }
 
-        // Circle constructor takes a circle center point as well as the circle radius.
-        //
-        public Circle(Point center, int radius)
-            : base(center) => Radius = radius;
-
         // Override "ToString" from the base "object" class.
         //
         public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
@@ -106,15 +84,6 @@ namespace Delegates
         //
         public int Width { get; set; }
         public int Height { get; set; }
-
-        // Rectangle constructor takes a center point as well as the rectangle width and height.
-        //
-        public Rectangle(Point center, int width, int height)
-            : base(center)
-        {
-            Width = width;
-            Height = height;
-        }
 
         // Override "ToString" from the base "object" class.
         //
@@ -160,13 +129,17 @@ namespace Delegates
             // in hand, the rest of the call is still the same.
             //
             //       :
-            //     Circle c1= new(new Point(11,12),110);
+            //     Circle c1= new();
             //     Test myTest = new Test();
             //     c1.Draw(myTest.ShowShapeInfo);
             //       :
             //
             Console.WriteLine("\nDraw a circle and show its info.");
-            Circle c1 = new(new Point(11, 12), 110);
+            Circle c1 = new()
+            {
+                Center = new Point() { X = 11, Y = 12 },
+                Radius = 110
+            };
             c1.Draw(ShowShapeInfo);
 
             // Call the "Draw" method on the same circle again. This time for the delegate type
@@ -199,7 +172,12 @@ namespace Delegates
             // the order that they were added together.
             //
             Console.WriteLine("\nDraw a rectangle showing both type name and number of members.");
-            Rectangle r1 = new(new Point(21, 22), 100, 150);
+            Rectangle r1 = new()
+            {
+                Center = new Point() { X = 21, Y = 22 },
+                Width = 100,
+                Height = 150
+            };
             ShapePreprocessDelegate d2 = ShowShapeInfo;
             ShapePreprocessDelegate combined = d2 + d1;
             r1.Draw(combined);

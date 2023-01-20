@@ -14,6 +14,11 @@
 //     System.Collections.SortedList - collection of key/value pairs sorted by key
 //     System.Collections.Stack      - last-in, first-out collection of objects
 //
+// As these collection are all designed to contain "object" types, that means you can mix and match the
+// data of any type in all of these collections. It's important to remember here that since we're always
+// dealing with object references, adding value types to these collections will result in those types
+// being "boxed" when added and "unboxed" when queried.
+// 
 // PLEASE NOTE that since the introduction of generics and generic collections (which we'll cover later),
 // these collections are rarely used anymore.
 // ------------------------------------------------------------------------------------------------------
@@ -41,16 +46,8 @@ namespace Collections
             for (int i = 0; i < stringArray.Length; i++)
                 Console.WriteLine(stringArray[i]);
 
-            // The "ArrayList" is a list collection. The collection should be treated as simply a list of
-            // objects. The word "Array" refers to the implementation as the list is implemented as an
-            // array that dynamically resizes when necessary. Please note the following:
-            //
-            // 1. There is no capacity given on creation. The size increases as needed to make room for
-            //    the items that are added.
-            //
-            // 2. As the collection is designed to take data of type "object", you can mix and match the
-            //    data. Note that we're adding string, int, double, and bool types. You're not likely to
-            //    mix types to this degree in any real world applications but ... you can.
+            // The "ArrayList" collection is an array imlementation that sizes dynamically to accommodate
+            // the contents and entries can be referenced by index.
             //
             Console.WriteLine("\nSystem.Collections.ArrayList");
             ArrayList arrayList = new ArrayList();
@@ -61,15 +58,29 @@ namespace Collections
 
             // Write contents out using a "foreach" loop.
             //
-            // Note that if you know the data types in the collection, you can use that type in the
-            // "foreach" statement. For example, if we knew that we'd added all strings to the list, we
-            // could write the statement.
+            // Note the different ways we can loop here.
             //
-            //     foreach (string str in arrayList)
+            // 1. As the collection can be referenced by index, we can use a "for" loop to iteratoe over
+            //    it as in:
             //
-            // When the loop is written that way, the compiler will automatically performa a cast from
-            // the collection to the variable. If the collection contains an item or items that aren't
-            // of the type specified or derived from that type, an exception will be thrown.
+            //        for (int i = 0; i < arrayList.Count; i++)
+            //            Console.WriteLine(arrayList[i]);
+            //
+            // 2. The "foreach" loop has two possible forms. The form we use below doesn't really need
+            //    to know the data type as we're just writing it to the console.
+            //
+            //        foreach (object obj in arrayList)
+            //
+            //    Furthermore, even if we did know the data type, we could use some form of casting.
+            //
+            // 3. The other "foreach" form is to use the data type right in the statement assuming we
+            //    know the type as in:
+            //
+            //        foreach (string str in arrayList)
+            //
+            //    Using this form, the compiler will automatically perform a cast during iteration.
+            //    Beware though, if there is a type in the collection that cannot be cast to the declared
+            //    type, an exception will be thrown.
             //
             foreach (object obj in arrayList)
                 Console.WriteLine(obj);
@@ -101,7 +112,8 @@ namespace Collections
             // Once we've added values, we can turn around and write the contents of the table out to the
             // console. Note as we loop through the items in the table that each item comes back as an
             // object of type "DictionaryEntry". We can then use the "Key" and "Value" properties on the
-            // entry to get back to the original keys and values.
+            // entry to get back to the original keys and values. Like the collection itself, these two
+            // properties are of type "object".
             //
             foreach (DictionaryEntry item in hashTable)
                 Console.WriteLine($"{item.Key} - {item.Value}");

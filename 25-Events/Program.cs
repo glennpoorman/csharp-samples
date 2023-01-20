@@ -27,18 +27,10 @@ namespace Events
     //
     public struct Point
     {
-        // Public constructor takes input parameters for x and y and assigns them to the properties.
-        //
-        public Point(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
         // The X and Y auto-implemented properties of the shape center.
         //
-        public int X { get; }
-        public int Y { get; }
+        public int X { get; init; }
+        public int Y { get; init; }
 
         // Override "ToString" from the base "object" class.
         //
@@ -57,7 +49,7 @@ namespace Events
         // 1. From the calling code, an event handler is added using the += operator and is removed using
         //    the -= operator.
         //
-        //        Shape s = new(1,2);
+        //        Shape s = new();
         //        s.PropertyChanged += MyDelegate; // Add handler.
         //        s.PropertyChanged -= MyDelegate; // Remove handler.
         //
@@ -100,15 +92,6 @@ namespace Events
         //    calls "remove").
         //
         public event ChangeHandler PropertyChanged;
-
-        // First public constructor takes no arguments and initializes the x and y properties to zero.
-        //
-        public Shape()
-        { }
-
-        // Second public constructor takes a "Point" object to represent the shape center.
-        //
-        public Shape(Point center) => Center = center;
 
         // The shape center field.
         //
@@ -184,11 +167,6 @@ namespace Events
     //
     public class Circle : Shape
     {
-        // Circle constructor takes a circle center point as well as the circle radius.
-        //
-        public Circle(Point center, int radius)
-            : base(center) => Radius = radius;
-
         // Circle radius field. Just as with the shape, we're going back to using a private field as the
         // property implementation must now fire an event where appropriate.
         //
@@ -216,15 +194,6 @@ namespace Events
     //
     public class Rectangle : Shape
     {
-        // Rectangle constructor takes a center point as well as the rectangle width and height.
-        //
-        public Rectangle(Point center, int width, int height)
-            : base(center)
-        {
-            Width = width;
-            Height = height;
-        }
-
         // Rectangle width/height fields (again going back to fields).
         //
         private int width;
@@ -287,7 +256,10 @@ namespace Events
             // whenever a property on the circle changes.
             //
             Console.WriteLine("\nCreate a circle, add an event handler, change the radius.");
-            Circle c = new(new Point(20, 21), 10);
+            Circle c = new()
+            {
+                Center = new Point() { X = 20, Y = 21 }
+            };
             c.PropertyChanged += NotifyShapeChanged;
             c.Radius = 15;
 
@@ -302,7 +274,10 @@ namespace Events
             // Both handlers will be called.
             //
             Console.WriteLine("\nCreate a rectangle, add both event handlers, change the width.");
-            Rectangle r = new(new Point(11, 12), 150, 100);
+            Rectangle r = new()
+            {
+                Center = new Point() { X = 11, Y = 12 }
+            };
             r.PropertyChanged += NotifyShapeChanged;
             r.PropertyChanged += DrawShapeOnChange;
             r.Width = 175;

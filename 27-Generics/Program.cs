@@ -17,20 +17,11 @@ namespace Generics
     //
     public struct Point<T>
     {
-        // Public constructor takes input parameters for x and y and assigns them to the properties. Note
-        // that the type of the constructor parameters is the type parameter "T".
-        //
-        public Point(T x, T y)
-        {
-            X = x;
-            Y = y;
-        }
-
         // The x and y auto-implemented properties of the point coordinates. Note that the type of these
         // properties is the parameter "T".
         //
-        public T X { get; }
-        public T Y { get; }
+        public T X { get; init; }
+        public T Y { get; init; }
 
         // Override "ToString" from the base "object" class.
         //
@@ -40,21 +31,11 @@ namespace Generics
     // Define the "Shape" class. Here again we define the data type using the type parameter "T". For
     // this class, we simply pass that parameter down to the "Point" struct.
     //
-    //
     public class Shape<T>
     {
         // The shape center property.
         //
         public Point<T> Center { get; set; }
-
-        // First public constructor takes no arguments and initializes the x and y properties to zero.
-        //
-        public Shape()
-        { }
-
-        // Second public constructor takes a "Point" object to represent the shape center.
-        //
-        public Shape(Point<T> center) => Center = center;
 
         // Override "ToString" from the base "object" class.
         //
@@ -93,12 +74,6 @@ namespace Generics
         //
         public T Radius { get; set; }
 
-        // Circle constructor takes a circle center point as well as the circle radius. Note that the
-        // type of all of these parameters is the parameter "T".
-        //
-        public Circle(Point<T> center, T radius)
-            : base(center) => Radius = radius;
-
         // Override "ToString" from the base "object" class.
         //
         public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
@@ -117,16 +92,6 @@ namespace Generics
         public T Width { get; set; }
         public T Height { get; set; }
 
-        // Rectangle constructor takes a center point as well as the rectangle width and height. Note
-        // that the type of all of these parameters is the parameter "T".
-        //
-        public Rectangle(Point<T> center, T width, T height)
-            : base(center)
-        {
-            Width = width;
-            Height = height;
-        }
-
         // Override "ToString" from the base "object" class.
         //
         public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
@@ -143,34 +108,39 @@ namespace Generics
             // Note that just like a non-generic type, the creation could have been written using any of
             // the following forms.
             //
-            //    Circle<int> c1 = new Circle<int>(new Point<int>(11, 12), 20);
-            //    var c1 = new Circle<int>(new Point<int>(11, 12), 20);
-            //    Circle<int> c1 = new(new Point<int>(11, 12), 20);
-            //
-            // We could even have been dropping the name "Point".
-            //
-            //    Circle<int> c1 = new(new(11, 12), 20);
-            //
-            // Yes, the type can be inferred by the constructor function signature. I've been avoiding
-            // doing that because ... well ... I just don't like it. I prefer using these shortcuts in
-            // places where the resulting type is obvious.
+            //    Circle<int> c1 = new Circle<int>();
+            //    var c1 = new Circle<int>();
+            //    Circle<int> c1 = new();
             //
             Console.WriteLine("\nCreate a circle with \"int\" data.");
-            Circle<int> c1 = new(new Point<int>(11, 12), 20);
+            Circle<int> c1 = new()
+            {
+                Center = new Point<int>() { X = 11, Y = 12 },
+                Radius = 20
+            };
             c1.Draw();
 
             // Create another instance of a circle and specify that the data type of the center point
             // and radius is a string.
             //
             Console.WriteLine("\nCreate circle with \"string\" data.");
-            Circle<string> c2 = new(new Point<string>("Zero", "Zero"), "One Hundred");
+            Circle<string> c2 = new()
+            {
+                Center = new Point<string>() { X = "Zero", Y = "Zero" },
+                Radius = "One Hundred"
+            };
             c2.Draw();
 
             // Create an instance of a rectangle and specify that the data type of the center point,
             // width, and height is a double.
             //
             Console.WriteLine("\nCreate rectangle with \"double\" data.");
-            Rectangle<double> r1 = new(new Point<double>(1.5, 3.375), 150.5, 90.75);
+            Rectangle<double> r1 = new()
+            {
+                Center = new Point<double>() { X = 1.5, Y = 3.375 },
+                Width = 150.5,
+                Height = 90.75
+            };
             r1.Draw();
         }
     }
