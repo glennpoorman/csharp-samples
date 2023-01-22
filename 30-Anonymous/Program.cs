@@ -3,87 +3,75 @@
 //
 // Anonymous methods in C#.
 //
-// C# 2.0 introduced the ability to put code "inline" when setting an event handler using what they call
+// C# 2 introduced the ability to put code "inline" when setting an event handler using what they call
 // "anonymous methods."
 //
 // This sample will show this functionality using the shapes classes from the "Events" sample just to
 // keep things simple.
 //
-// PLEASE NOTE: As of C# 3.0, anonymous methods are more or less deprecated and replaced with lambda
-//              expressions. They are still supported and still compile but lambda expressions provide
-//              a much nicer way to achieve the same results.
+// PLEASE NOTE that as of C# 3, anonymous methods are more or less deprecated and replaced with lambda
+// expressions. They are still supported and still compile but lambda expressions provide a much nicer
+// way to achieve the same results.
 // ------------------------------------------------------------------------------------------------------
 
 using System;
 
 namespace Anonymous
 {
-    // Define the base "Shape" class.
+    // The "Point" struct.
+    //
+    public struct Point
+    {
+        // The X and Y auto-implemented properties of the point coordinates.
+        //
+        public int X { get; init; }
+        public int Y { get; init; }
+
+        // Override "ToString" from the base "object" class.
+        //
+        public override string ToString() => $"{X}, {Y}";
+    }
+
+    // Define the "Shape" class.
     //
     public class Shape
     {
-        // The x and y coordinates of the shape center.
+        // The "PropertyChanged" event.
         //
-        private int x;
-        private int y;
+        public event Action<Shape, string> PropertyChanged;
 
-        // The "PropertyChanged" event member.
+        // The shape center field.
         //
-        public event Action<Shape> PropertyChanged;
+        private Point center;
 
-        // First public constructor takes no arguments and initializes the fields x and y to zero.
+        // Center point property.
         //
-        public Shape()
-        {}
-
-        // Second public constructor takes input parameters for x and y and assigns them to the data
-        // fields.
-        //
-        public Shape(int x, int y)
+        public Point Center
         {
-            this.x = x;
-            this.y = y;
+            get => center;
+            set
+            {
+                center = value;
+                OnPropertyChanged("Center");
+            }
         }
 
-        // X coordinate property.
+        // This method fires the event. Note that event now has the specific signature of a shape
+        // reference and a string so we can go ahead and call it without having to create any additional
+        // event arguments.
         //
-        public int X
+        protected void OnPropertyChanged(string name)
         {
-            get { return x; }
-            set { x = value;
-                  OnPropertyChanged(); }
-        }
-
-        // Y coordinate property.
-        //
-        public int Y
-        {
-            get { return y; }
-            set { y = value;
-                  OnPropertyChanged(); }
-        }
-
-        // Protected method fires the "PropertyChanged" event.
-        //
-        protected void OnPropertyChanged()
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this);
+            PropertyChanged?.Invoke(this, name);
         }
 
         // Override "ToString" from the base "object" class.
         //
-        public override string ToString()
-        {
-            return "(" + x.ToString() + ", " + y.ToString() + ")";
-        }
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
         // Virtual "Draw" method.
         //
-        public virtual void Draw()
-        {
-            Console.WriteLine("Center = {0}", this);
-        }
+        public virtual void Draw() => Console.WriteLine(this);
     }
 
     // Define a class "Circle" that derives from "Shape" and adds a radius.
@@ -94,75 +82,60 @@ namespace Anonymous
         //
         private int radius;
 
-        // Circle constructor takes x,y coordinates of the circle center as well as the circle radius.
-        //
-        public Circle(int x, int y, int radius) : base(x, y)
-        {
-            this.radius = radius;
-        }
-
         // Public radius property.
         //
         public int Radius
         {
-            get { return radius; }
-            set { radius = value;
-                  OnPropertyChanged(); }
+            get => radius;
+            set
+            {
+                radius = value;
+                OnPropertyChanged("Radius");
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Radius = ({0})", radius);
-        }
+        public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
     }
 
     // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
     //
     public class Rectangle : Shape
     {
-        // Rectangle width/height fields.
+        // Rectangle width/height fields (again going back to fields).
         //
         private int width;
         private int height;
-
-        // Rectangle constructor takes x,y coordinates of the center as well as the rectangle width and
-        // height.
-        //
-        public Rectangle(int x, int y, int width, int height) : base(x, y)
-        {
-            this.width  = width;
-            this.height = height;
-        }
 
         // Public width property.
         //
         public int Width
         {
-            get { return width; }
-            set { width = value;
-                  OnPropertyChanged(); }
+            get => width;
+            set
+            {
+                width = value;
+                OnPropertyChanged("Width");
+            }
         }
 
-        // Public height property.
+        // Public height property. Again the "set" accessor has been modified to call "OnPropertyChanged"
+        // from the base class firing off an event.
         //
         public int Height
         {
-            get { return height; }
-            set { height = value;
-                  OnPropertyChanged(); }
+            get => height;
+            set
+            {
+                height = value;
+                OnPropertyChanged("Height");
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Width = ({0})", width);
-            Console.WriteLine("Height = ({0})", height);
-        }
+        public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
     }
 
     class Program
@@ -171,7 +144,7 @@ namespace Anonymous
         {
             // Create a "Circle" and "Draw" it to the console.
             //
-            Circle circle = new Circle(12, 13, 100);
+            Circle circle = new() { Center = new Point() { X = 12, Y = 13 }, Radius = 100 };
             Console.WriteLine("Initial circle created.");
             circle.Draw();
 
@@ -185,7 +158,11 @@ namespace Anonymous
             // 2. The "delegate" keyword is followed by a parameter list which must exactly match the
             //    parameter list of the delegate type (in this case ... "Action<Shape>").
             //
-            circle.PropertyChanged += delegate(Shape s) { s.Draw(); };
+            circle.PropertyChanged += delegate(Shape s, string p)
+            {
+                Console.WriteLine($"Circle property {p} has changed.");
+                s.Draw();
+            };
 
             // Now change one of the properties on the circle object and watch the event fire (resulting
             // in drawing the shape data to the console).
@@ -202,7 +179,11 @@ namespace Anonymous
             // has me puzzled). So you might think you're good but notice after our attempt to remove the
             // handler that the circle still prints if any properties are changed.
             //
-            circle.PropertyChanged -= delegate(Shape s) { s.Draw(); };
+            circle.PropertyChanged -= delegate(Shape s, string p)
+            {
+                Console.WriteLine($"Circle property {p} has changed.");
+                s.Draw();
+            };
             Console.WriteLine("\nAttempted to remove event handler.");
             Console.WriteLine("Changing the circle radius again.");
             circle.Radius = 50;
@@ -219,8 +200,12 @@ namespace Anonymous
             // they have full access to the variables that are in the local scope when the event handler
             // is set.
             //
-            Rectangle rect = new Rectangle(10, 10, 600, 450);
-            rect.PropertyChanged += delegate { rect.Draw(); };
+            Rectangle rect = new() { Center = new Point() { X = 10, Y = 10 }, Width = 600, Height = 450 };
+            rect.PropertyChanged += delegate
+            {
+                Console.WriteLine("Rectangle property has changed.");
+                rect.Draw();
+            };
             Console.WriteLine("\nInitial rectangle created.");
             rect.Draw();
 
@@ -228,11 +213,6 @@ namespace Anonymous
             //
             Console.WriteLine("\nChanging the rectangle height.");
             rect.Height = 400;
-
-            // Wait for <enter> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }
