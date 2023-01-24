@@ -212,7 +212,11 @@ namespace Lambda
         {
             // Create a "Circle" and "Draw" it to the console.
             //
-            Circle circle = new() { Center = new Point() { X = 12, Y = 13 }, Radius = 100 };
+            Circle circle = new()
+            {
+                Center = new Point() { X = 12, Y = 13 },
+                Radius = 100
+            };
             Console.WriteLine("Initial circle created.");
             circle.Draw();
 

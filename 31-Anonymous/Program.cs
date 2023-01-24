@@ -144,7 +144,11 @@ namespace Anonymous
         {
             // Create a "Circle" and "Draw" it to the console.
             //
-            Circle circle = new() { Center = new Point() { X = 12, Y = 13 }, Radius = 100 };
+            Circle circle = new()
+            {
+                Center = new Point() { X = 12, Y = 13 },
+                Radius = 100
+            };
             Console.WriteLine("Initial circle created.");
             circle.Draw();
 
@@ -200,7 +204,12 @@ namespace Anonymous
             // they have full access to the variables that are in the local scope when the event handler
             // is set.
             //
-            Rectangle rect = new() { Center = new Point() { X = 10, Y = 10 }, Width = 600, Height = 450 };
+            Rectangle rect = new()
+            {
+                Center = new Point() { X = 10, Y = 10 },
+                Width = 600,
+                Height = 450
+            };
             rect.PropertyChanged += delegate
             {
                 Console.WriteLine("Rectangle property has changed.");

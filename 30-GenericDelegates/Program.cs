@@ -189,7 +189,11 @@ namespace MoreGenerics
             // circle center and radius and watch the property change event fire writing the shape data
             // to the console.
             //
-            Circle c1 = new() { Center = new Point() { X = 11, Y = 12 }, Radius = 15 };
+            Circle c1 = new()
+            {
+                Center = new Point() { X = 11, Y = 12 },
+                Radius = 15
+            };
             Console.WriteLine($"Created {c1}");
             c1.PropertyChanged += NotifyShapeChanged;
             c1.Center = new Point() { X = 10, Y = 10 };
@@ -199,7 +203,12 @@ namespace MoreGenerics
             // the rectangle width and height and watch the property change event fire writing the shape
             // data to the console.
             //
-            Rectangle r1 = new() { Center = new Point() { X = 20, Y = 25 }, Width = 100, Height = 80 };
+            Rectangle r1 = new()
+            {
+                Center = new Point() { X = 20, Y = 25 },
+                Width = 100,
+                Height = 80
+            };
             Console.WriteLine($"\nCreated {r1}");
             r1.PropertyChanged += NotifyShapeChanged;
             r1.Width = 125;
@@ -210,10 +219,25 @@ namespace MoreGenerics
             Console.WriteLine("\nCreate a list of shapes.");
             List<Shape> shapeList = new()
             {
-                new Shape() { Center = new Point() { X = 11, Y = 12 } },
-                new Circle() { Center = new Point() { X = 20, Y = 20 }, Radius = 2 },
-                new Rectangle() { Height = 20, Width = 30 },
-                new Circle() { Center = new Point() { X = 1, Y = 2 }, Radius = 5 },
+                new Shape()
+                {
+                    Center = new Point() { X = 11, Y = 12 }
+                },
+                new Circle()
+                {
+                    Center = new Point() { X = 20, Y = 20 },
+                    Radius = 2
+                },
+                new Rectangle()
+                {
+                    Height = 20,
+                    Width = 30
+                },
+                new Circle()
+                {
+                    Center = new Point() { X = 1, Y = 2 },
+                    Radius = 5
+                },
             };
 
             // Call the generic list "Find" method. This method takes a "System.Predicate" delegate

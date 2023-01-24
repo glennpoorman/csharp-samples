@@ -159,10 +159,26 @@ namespace Initializers
             Console.WriteLine("\nSystem.Collections.Generic.Dictionary<TKey,TValue>");
             Dictionary<string, Shape> shapesDictionary = new()
             {
-                ["shape-01"] = new Shape() { Center = new Point() { X = 11, Y = 12 } },
-                ["shape-02"] = new Circle() { Center = new Point() { X = 14, Y = 15 }, Radius = 12 },
-                ["shape-03"] = new Circle() { Center = new Point() { X = 17, Y = 18 }, Radius = 21 },
-                ["shape-04"] = new Rectangle() { Center = new Point() { X = 20, Y = 21 }, Width = 12, Height = 14 }
+                ["shape-01"] = new Shape()
+                {
+                    Center = new Point() { X = 11, Y = 12 }
+                },
+                ["shape-02"] = new Circle()
+                {
+                    Center = new Point() { X = 14, Y = 15 },
+                    Radius = 12
+                },
+                ["shape-03"] = new Circle()
+                {
+                    Center = new Point() { X = 17, Y = 18 },
+                    Radius = 21
+                },
+                ["shape-04"] = new Rectangle()
+                {
+                    Center = new Point() { X = 20, Y = 21 },
+                    Width = 12,
+                    Height = 14
+                }
             };
 
             // Note when iterating over the dictionary style collections that the individual items are
