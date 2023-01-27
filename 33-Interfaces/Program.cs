@@ -137,10 +137,25 @@ namespace Interfaces
             //
             DrawableList drawableList = new()
             {
-                new Shape() { Center = new Point() { X = 10, Y = 22 } },
-                new Circle() { Center = new Point() { X = 30, Y = 40 }, Radius = 101 },
-                new Person() { LastName = "Poorman", FirstName = "Glenn" },
-                new Circle() { Center = new Point() { X = 101, Y = 202 }, Radius = 12 }
+                new Shape()
+                {
+                    Center = new Point() { X = 10, Y = 22 }
+                },
+                new Circle()
+                {
+                    Center = new Point() { X = 30, Y = 40 },
+                    Radius = 101
+                },
+                new Person()
+                {
+                    LastName = "Poorman",
+                    FirstName = "Glenn"
+                },
+                new Circle()
+                {
+                    Center = new Point() { X = 101, Y = 202 },
+                    Radius = 12
+                }
             };
 
             // Call the method on the list to iterate through the drawables and call their "Draw" method.

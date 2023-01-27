@@ -179,10 +179,26 @@ namespace Iterators
             //
             DrawableList drawableList = new()
             {
-                new Shape() { Center = new Point() { X = 10, Y = 22 } },
-                new Circle() { Center = new Point() { X = 30, Y = 40 }, Radius = 101 },
-                new Person() { LastName = "Poorman", FirstName = "Glenn" },
-                new Circle() { Center = new Point() { X = 101, Y = 202 }, Radius = 12 }
+                new Shape()
+                {
+                    Center = new Point() { X = 10, Y = 22 }
+                },
+                new Circle()
+                {
+                    Center = new Point() { X = 30, Y = 40 },
+                    Radius = 101
+                },
+                new Person()
+                {
+                    LastName = "Poorman",
+                    FirstName = "Glenn"
+                },
+                new Circle()
+                {
+                    Center = new Point()
+                    { X = 101, Y = 202 },
+                    Radius = 12
+                }
             };
 
             // Create an enumerator and use the enumerator methods explicitly to iterate over the list
@@ -197,10 +213,7 @@ namespace Iterators
             Console.WriteLine("Display the drawable list explicitly using enumerator methods.");
             IEnumerator<IDrawable> iEnum = drawableList.GetEnumerator();
             while (iEnum.MoveNext())
-            {
-                IDrawable drawable = iEnum.Current;
-                drawable.Draw();
-            }
+                iEnum.Current.Draw();
 
             // You actually never need to explicitly reference an enumerator though. Truth be told, every
             // type of collection in C# implements, at the very least, "IEnumerable" including a simple
