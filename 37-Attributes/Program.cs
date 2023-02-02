@@ -7,7 +7,7 @@
 // program entities that can be retrieved at runtime.
 //
 // This sample applies a "Description" attribute to each of our shape classes and also applies the same
-// attribute the the public members. The attribute can also optionally take a "Url" property which
+// attribute to the the public members. The attribute can also optionally take a "Url" property which
 // directs you to a ficticious website containing more detailed information on the classes.
 //
 // With the custom attributes applied, the sample then queries each class type for the custom attribute
@@ -21,7 +21,6 @@
 // ------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Attributes
@@ -47,173 +46,151 @@ namespace Attributes
 
         // Public constructor takes the description text as an input parameter.
         //
-        public DescriptionAttribute(string text)
-        {
-            this.Text = text;
-        }
+        public DescriptionAttribute(string text) => Text = text;
     }
 
-    // Define the "Shape" class. In between the square brackets, attach the attribute.
+    // The "Point" struct.
     //
-    // NOTE1: C# adds a small twist in that if your attribute class ends with the word "Attribute", you
-    //        can leave that part off which is why we just call the attribute "Description". This isn't
-    //        mandatory. You can call your attribute class anything you want.
+    // Just before the class declaration, attach the attribute by placing the attribute name in between
+    // square brackets. Please note the following:
     //
-    // NOTE2: Required constructor parameters (in this case, the text) are put in between the open and
-    //        close parenthesis just like a regular constructor call.
+    // 1. C# adds a small twist in that if your attribute class ends with the word "Attribute", you can
+    //    leave that part off which is why we just call the attribute "Description" here. This isn't
+    //    mandatory. You can call your attribute class anything you want.
     //
-    //            [Description("Descriptive Text")]
+    // 2. Required constructor parameters (in this case, the description) are put in between the open and
+    //    close parenthesis just like a regular constructor call.
     //
-    //        In addition you can also specify optional properties using the property name separated from
-    //        the constructor parameters by a comma.
+    //        [Description("Descriptive Text")]
     //
-    //            [Description("Descriptive Text", Url="Url Text")]
+    //    In addition you can also specify optional properties using the property name separated from the
+    //    constructor parameters by a comma.
     //
-    [Description("Base Shape class", Url="http://www.shapes.com/shape.html")]
-    public class Shape
+    //        [Description("Descriptive Text"), Url="Url Text")]
+    //
+    //    Note that this is similar, but not exactly like property initialization.
+    //
+    [Description("2D Point class", Url ="https://www.shapes.com/help/point.html")]
+    public struct Point
     {
-        // The x and y coordinates of the shape center.
-        //
-        private int x;
-        private int y;
-
-        // Declare an event called "PropertyChanged".
-        //
-        // In addition to adding attributes to the class, you can also add attributes to individual
-        // members. Here one of our custom attributes is added to the event member.
-        //
-        // NOTE: We've left off the optional "Url" property here. In this sample, we'll only use that
-        //       property on the classes themselves.
-        //
-        [Description("Event fires when any shape property changes")]
-        public event Action<Shape,string> PropertyChanged;
-
-        // First public constructor takes no arguments and initializes the fields x and y to zero.
-        //
-        [Description("Default shape constructor")]
-        public Shape()
-        {}
-
-        // Second public constructor takes input parameters for x and y and assigns them to the data
-        // fields.
-        //
-        [Description("Construct shape with specified center point")]
-        public Shape(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
         // X coordinate property.
         //
-        [Description("Shape center X coordinate property")]
-        public int X
-        {
-            get { return x; }
-            set { x = value;
-                  OnPropertyChanged("X"); }
-        }
+        // Like the class itself, we can attach attributes to individual members by declaring the
+        // attribute just before the property/method/etc declaration. Declare an attribute describing
+        // the X property. Note that we left off the "Url" property here. In this example, we'll reserve
+        // that property for the types themselves but not their individual members.
+        //
+        [Description("The point X coordinate")]
+        public int X { get; init; }
 
         // Y coordinate property.
         //
-        [Description("Shape center Y coordinate property")]
-        public int Y
+        [Description("The point Y coordinate")]
+        public int Y { get; init; }
+
+        // Override "ToString" from the base "object" class.
+        //
+        [Description("Convert the point data into a string")]
+        public override string ToString() => $"{X}, {Y}";
+    }
+
+    // Define the "Shape" class.
+    //
+    [Description("Base Shape class", Url="https://www.shapes.com/help/shape.html")]
+    public class Shape
+    {
+        // The "PropertyChanged" event.
+        //
+        [Description("Event fires when any shape property is changed")]
+        public event Action<Shape, string> PropertyChanged;
+
+        // The shape center field.
+        //
+        private Point center;
+
+        // Center point property.
+        //
+        [Description("The Shape center point property")]
+        public Point Center
         {
-            get { return y; }
-            set { y = value;
-                  OnPropertyChanged("Y"); }
+            get => center;
+            set
+            {
+                center = value;
+                OnPropertyChanged("Center");
+            }
         }
 
         // This method fires the event.
         //
         protected void OnPropertyChanged(string name)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, name);
+            PropertyChanged?.Invoke(this, name);
         }
 
         // Override "ToString" from the base "object" class.
         //
-        [Description("Convert shape data to string form")]
-        public override string ToString()
-        {
-            return "(" + x.ToString() + ", " + y.ToString() + ")";
-        }
+        [Description("Convert the point data into a string")]
+        public override string ToString() => $"{GetType().Name}, Center = ({Center})";
 
         // Virtual "Draw" method.
         //
         [Description("Shape draw method")]
         public virtual void Draw()
         {
-            Console.WriteLine("Center = {0}", this);
+            Console.WriteLine(this);
         }
     }
 
     // Define a class "Circle" that derives from "Shape" and adds a radius.
     //
-    [Description("Circle class", Url="http://www.shapes.com/circle.html")]
+    [Description("Simple Circle class", Url="https://www.shapes.com/help/circle.html")]
     public class Circle : Shape
     {
         // Circle radius field.
         //
         private int radius;
 
-        // Circle constructor takes x,y coordinates of the circle center as well as the circle radius.
-        //
-        [Description("Construct circle with specified radius and center")]
-        public Circle(int x, int y, int radius) : base(x, y)
-        {
-            this.radius = radius;
-        }
-
         // Public radius property.
         //
         [Description("Circle radius property")]
         public int Radius
         {
-            get { return radius; }
-            set { radius = value;
-                  OnPropertyChanged("Radius"); }
+            get => radius;
+            set
+            {
+                radius = value;
+                OnPropertyChanged("Radius");
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        [Description("Circle draw method")]
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Radius = ({0})", radius);
-        }
+        [Description("Convert the Circle data into a string")]
+        public override string ToString() => $"{base.ToString()}, Radius = ({Radius})";
     }
 
     // Define a class "Rectangle" that derives from "Shape" and adds a width and height.
     //
-    [Description("Rectangle class", Url="http://www.shapes.com/rectangle.html")]
+    [Description("Simple Rectangle class", Url="https://www.shapes.com/help/rectangle.html")]
     public class Rectangle : Shape
     {
-        // Rectangle width/height fields.
+        // Rectangle width/height fields (again going back to fields).
         //
         private int width;
         private int height;
-
-        // Rectangle constructor takes x,y coordinates of the center as well as the rectangle width and
-        // height.
-        //
-        [Description("Construct rectangle with specifed center, width, height")]
-        public Rectangle(int x, int y, int width, int height) : base(x, y)
-        {
-            this.width  = width;
-            this.height = height;
-        }
 
         // Public width property.
         //
         [Description("Rectangle width property")]
         public int Width
         {
-            get { return width; }
-            set { width = value;
-                  OnPropertyChanged("Width"); }
+            get => width;
+            set
+            {
+                width = value;
+                OnPropertyChanged("Width");
+            }
         }
 
         // Public height property.
@@ -221,23 +198,21 @@ namespace Attributes
         [Description("Rectangle height property")]
         public int Height
         {
-            get { return height; }
-            set { height = value;
-                  OnPropertyChanged("Height"); }
+            get => height;
+            set
+            {
+                height = value;
+                OnPropertyChanged("Height");
+            }
         }
 
-        // Override the "Draw" method.
+        // Override "ToString" from the base "object" class.
         //
-        [Description("Rectangle draw method")]
-        public override void Draw()
-        {
-            base.Draw();
-            Console.WriteLine("Width = ({0})", width);
-            Console.WriteLine("Height = ({0})", height);
-        }
+        [Description("Convert the Rectangle data into a string")]
+        public override string ToString() => $"{base.ToString()}, Width = ({Width}), Height = ({Height})";
     }
 
-    public class Program
+    class Program
     {
         // Static method takes in a "Type" object and looks to see if the type has one of our custom
         // attributes attached to it and writes the attribute information to the console. The method then
@@ -246,26 +221,22 @@ namespace Attributes
         //
         private static void ShowClassInfo(Type type)
         {
-            // Write the type info to the console.
-            //
-            Console.WriteLine("\nMember info for type {0}", type);
+            Console.WriteLine($"\nMember info for type {type}");
 
-            // "GetCustomAttribute" is a static method on the Attribute class. Given the type of object
-            // we want to query and also the type of the specific attribute we're looking for, this
-            // method looks to see if any attributes that fit our criteria are attached. If so, the
-            // attribute is returned.
+            // Using the static "GetCustomAttribute" method defined on the "Attribute" class, query the
+            // type specified in the first parameter to see if it contains an attribute of the type
+            // specified in the second parameter. If so, then the attribute is returned.
             //
-            DescriptionAttribute a1 = Attribute.GetCustomAttribute(type,
-                typeof(DescriptionAttribute)) as DescriptionAttribute;
+            var a1 = Attribute.GetCustomAttribute(type, typeof(DescriptionAttribute)) as DescriptionAttribute;
 
             // If we found one of our attributes, write the text from the attribute to the console. If
             // the optional Url string is found, write that out as well.
             //
             if (a1 != null)
             {
-                Console.WriteLine("Description: " + a1.Text);
-                if (!String.IsNullOrEmpty(a1.Url))
-                    Console.WriteLine("Url: " + a1.Url);
+                Console.WriteLine($"Description: {a1.Text}");
+                if (!string.IsNullOrEmpty(a1.Url))
+                    Console.WriteLine($"Url: {a1.Url}");
             }
 
             // Call "GetMembers" on the "Type" object to fetch an array of "MemberInfo" objects, one for
@@ -277,23 +248,28 @@ namespace Attributes
                 // Again use "GetCustomAttribute" to see if one of our custom attributes is attached to
                 // the member type.
                 //
-                DescriptionAttribute a2 = Attribute.GetCustomAttribute(info,
-                    typeof(DescriptionAttribute)) as DescriptionAttribute;
+                var a2 = Attribute.GetCustomAttribute(info, typeof(DescriptionAttribute)) as DescriptionAttribute;
 
                 // If we found one, write the member info and the attribute info to the console.
                 //
                 if (a2 != null)
                 {
-                    Console.WriteLine("\n  {0} - {1}", info.MemberType, info.Name);
-                    Console.WriteLine("  Description: " + a2.Text);
-                    if (!String.IsNullOrEmpty(a2.Url))
-                        Console.WriteLine("  Url: " + a2.Url);
+                    Console.WriteLine($"\n  {info.MemberType} - {info.Name}");
+                    Console.WriteLine($"  Description: {a2.Text}");
+                    if (!string.IsNullOrEmpty(a2.Url))
+                        Console.WriteLine($"  Url: {a2.Url}");
                 }
             }
         }
 
-        public static void Main()
+        static void Main()
         {
+            // Call the static method to show member information and attributes for the struct "Point".
+            //
+            Console.Write("\nHit <ENTER> to see Point members: ");
+            Console.ReadLine();
+            ShowClassInfo(typeof(Point));
+
             // Call the static method to show member information for the class "Shape".
             //
             Console.Write("\nHit <ENTER> to see Shape members: ");
@@ -311,11 +287,6 @@ namespace Attributes
             Console.Write("\nHit <ENTER> to see Rectangle members: ");
             Console.ReadLine();
             ShowClassInfo(typeof(Rectangle));
-
-            // Wait for <ENTER> to finish.
-            //
-            Console.Write("\nHit <ENTER> to finish: ");
-            Console.ReadLine();
         }
     }
 }

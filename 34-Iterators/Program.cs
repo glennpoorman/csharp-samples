@@ -31,7 +31,7 @@
 // skip straight to implementing "IEnumerable<T>" and this will handle both generic and non-generic
 // iteration.
 //
-// This simple extends the previous "Interfaces" sample such that our list of drawable objects now
+// This sample extends the previous "Interfaces" sample such that our list of drawable objects now
 // implements "IEnumerable<IDrawable>".
 // ------------------------------------------------------------------------------------------------------
 
