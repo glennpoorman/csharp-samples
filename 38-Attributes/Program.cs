@@ -225,14 +225,10 @@ namespace Attributes
 
             // Using the static "GetCustomAttribute" method defined on the "Attribute" class, query the
             // type specified in the first parameter to see if it contains an attribute of the type
-            // specified in the second parameter. If so, then the attribute is returned.
+            // specified in the second parameter. If we find one, write the text from the attribute to
+            // the console. If the optional Url string is found, write that out as well.
             //
-            var a1 = Attribute.GetCustomAttribute(type, typeof(DescriptionAttribute)) as DescriptionAttribute;
-
-            // If we found one of our attributes, write the text from the attribute to the console. If
-            // the optional Url string is found, write that out as well.
-            //
-            if (a1 != null)
+            if (Attribute.GetCustomAttribute(type, typeof(DescriptionAttribute)) is DescriptionAttribute a1)
             {
                 Console.WriteLine($"Description: {a1.Text}");
                 if (!string.IsNullOrEmpty(a1.Url))
@@ -246,13 +242,10 @@ namespace Attributes
             foreach (MemberInfo info in infoArray)
             {
                 // Again use "GetCustomAttribute" to see if one of our custom attributes is attached to
-                // the member type.
+                // the member type. If so, then write the member info and the attribute info to the
+                // console.
                 //
-                var a2 = Attribute.GetCustomAttribute(info, typeof(DescriptionAttribute)) as DescriptionAttribute;
-
-                // If we found one, write the member info and the attribute info to the console.
-                //
-                if (a2 != null)
+                if (Attribute.GetCustomAttribute(info, typeof(DescriptionAttribute)) is DescriptionAttribute a2)
                 {
                     Console.WriteLine($"\n  {info.MemberType} - {info.Name}");
                     Console.WriteLine($"  Description: {a2.Text}");

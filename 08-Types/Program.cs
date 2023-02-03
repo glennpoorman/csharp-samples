@@ -92,7 +92,7 @@ namespace Types
             //
             // In the assignment below, the object reference is cast back into an array reference using
             // the familiar casting syntax. As was the case with the integer cast, if the object type
-            // doesn't match the variable it's being cast to, an excpetion will be thrown.
+            // doesn't match the variable it's being cast to, an exception will be thrown.
             //
             string[] a3 = (string[])o1;
 
@@ -109,7 +109,7 @@ namespace Types
             //
             string[] a4 = o1 as string[];
 
-            // Now that the objects are cast back into shapes, print them to the console.
+            // Now that the objects are cast back into string arrays, print them to the console.
             //
             Console.WriteLine("\nPrinting entries from two array variables (again).");
             for (int i = 0; i < a3.Length; i++)
@@ -117,6 +117,14 @@ namespace Types
             Console.WriteLine();
             for (int i = 0; i < a4.Length; i++)
                 Console.WriteLine("a4[{0}] = {1}", i, a4[i]);
+
+            // You can also use the "is" operator to check the type of a variable before trying to cast.
+            //
+            Console.WriteLine("\nCheck type with the \"is\" operator");
+            if (o1 is int[])
+                Console.WriteLine("Object \"o1\" is an int array");
+            else
+                Console.WriteLine("Object \"o1\" is NOT an int array");
         }
     }
 }
