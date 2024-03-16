@@ -4,7 +4,7 @@ These samples are setup to guide C++ programmers into C# beginning with the clas
 
 ## Requirements
 
-These samples will include some language features as new as C# 9. You should have (minimum) Visual Studio 2019 installed on your system supporting .NET 5.0.
+These samples will include some language features as new as C# 10. You should have (minimum) Visual Studio 2022 installed on your system supporting .NET 7.0.
 
 ## Prerequisites
 
@@ -22,9 +22,9 @@ All of the details are in the code. Go through the numbered samples one at a tim
 
 ### Visual Studio
 
-Each folder contains a solution file and a project file. Open the solution file in Visual Studio (2019 or later), build, and then run. Note that these are all console apps. That means that if you run any of the apps from within Visual Studio, the console could disappear before you have a chance to see anything.
+Each folder contains a solution file and a project file. Open the solution file in Visual Studio (2022 or later), build, and then run. Note that these are all console apps. That means that if you run any of the apps from within Visual Studio, the console could disappear before you have a chance to see anything.
 
-By default, Visual Studio 2019 pauses at the end of a console application and prompts the user to hit any key to close the console. If you're not seeing this, you need to open up your options dialog *Tools|Options*, go to the *General* section under *Debugging*, and make sure that the option *Automatically close the console when debugging stops* is **NOT** selected. 
+By default, Visual Studio 2022 pauses at the end of a console application and prompts the user to hit any key to close the console. If you're not seeing this, you need to open up your options dialog *Tools|Options*, go to the *General* section under *Debugging*, and make sure that the option *Automatically close the console when debugging stops* is **NOT** selected. 
 
 ### Visual Studio Code
 
