@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------------
-// Nullable
+// NullableValueType
 //
 // The "Nullable" type is part of the "System" namespace and allows value types to be treated like
 // reference types. In other words, the "Nullable" type can represent the full range of values for its
@@ -9,7 +9,7 @@
 
 using System;
 
-namespace Nullable
+namespace NullableValueType
 {
     // The "Point" struct (remember that structs are value types).
     //
